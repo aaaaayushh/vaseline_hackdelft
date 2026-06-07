@@ -104,10 +104,16 @@ Because we use a user's past to predict their future, **history features are com
 
 ## 5. Component 2 — Insight Engine
 
-### 5.1 Framework: detectors + ranking
-Each insight is a pluggable **detector** implementing one interface and emitting a typed object:
+The Insight Engine is implemented as a standalone Python package (`insight_engine/`) that consumes the enriched table and emits **dashboard-ready JSON** for the React Native app (built later). It is structured so each detector is independently testable and the dashboard payload is a stable contract the front-end codes against.
+
+### 5.1 Framework: detectors → ranking → dashboard
+Each insight is a pluggable **detector** implementing one interface and emitting a typed `Insight` object:
 ```
-InsightDetector.run(user_history) -> [ {type, severity, user_id, payload, explanation} ]
+InsightDetector.fit(ctx)                       # optional population-level precompute (e.g. cohort baselines)
+InsightDetector.detect(user_df, ctx) -> [ Insight ]
+
+Insight = { type, user_id, title, explanation, severity (0..1), payload, actions }
+         + derived: level (info/notice/warning/alert), insight_id (stable, for dedup/cooldown)
 ```
 A **ranking layer** scores candidates by severity × relevance × novelty, applies dedup + cooldown, and surfaces only the **top-N** — so the user gets the one insight that matters, not notification spam. (This anti-spam ranking is itself an architecture talking point.)
 
