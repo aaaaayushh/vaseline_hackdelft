@@ -104,18 +104,41 @@ Because we use a user's past to predict their future, **history features are com
 
 ## 5. Component 2 — Insight Engine
 
-### 5.1 Framework: detectors + ranking
-Each insight is a pluggable **detector** implementing one interface and emitting a typed object:
-```
-InsightDetector.run(user_history) -> [ {type, severity, user_id, payload, explanation} ]
-```
-A **ranking layer** scores candidates by severity × relevance × novelty, applies dedup + cooldown, and surfaces only the **top-N** — so the user gets the one insight that matters, not notification spam. (This anti-spam ranking is itself an architecture talking point.)
+The Insight Engine is implemented as a standalone Python package (`insight_engine/`) that consumes the enriched table and emits **dashboard-ready JSON** for the React Native app (built later). It is structured so each detector is independently testable and the dashboard payload is a stable contract the front-end codes against.
 
-### 5.2 Hero insight — Proactive Overspend Alert
-For each user × category, learn a personal baseline (rolling mean + seasonal adjustment) and a dispersion (robust z-score). Fire when the *month-to-date run rate* projects materially above baseline, **early enough to act** ("40% over your usual Dining, and it's only the 18th"). Robust on noisy synthetic data, named explicitly in the brief, and it directly demonstrates the value of better categorization (you can't alert on "Dining" if "Dining" is mislabeled).
+### 5.1 Framework: detectors → ranking → dashboard
+Each insight is a pluggable **detector** implementing one interface and emitting a typed `Insight` object:
+```
+InsightDetector.fit(ctx)                       # optional population-level precompute (e.g. cohort baselines)
+InsightDetector.detect(user_df, ctx) -> [ Insight ]
 
-### 5.3 Supporting detectors (breadth)
-Subscription radar (new/forgotten/price-hiked recurring), FX & fee leakage (txn vs bill amount — on-brand for Revolut), upcoming-charges/cashflow forecast, unusual-spend anomaly, cohort benchmarking (demographics + region), decline insight (declines before payday).
+Insight = { type, user_id, title, explanation, severity (0..1), payload, actions }
+         + derived: level (info/notice/warning/alert), insight_id (stable, for dedup/cooldown)
+```
+A **ranking layer** scores candidates by `severity × per-type prior`, applies dedup + cooldown, and orders them so the **top insight is the push-notification hero** and the rest fill the dashboard — anti-spam by construction.
+
+The **engine** (`InsightEngine`) fits population context once (cohort baselines), then assembles a per-user dashboard:
+```
+dashboard(user_id) -> {
+  user_id, generated_at,
+  hero,                 # top-ranked insight → drives the push notification
+  insights[],           # all cards in priority order
+  sections{ type: card } # one card per detector, for fixed dashboard tiles
+}
+```
+A thin **FastAPI stub** (`insight_engine/api.py`: `/dashboard/{user_id}`, `/insights/{user_id}`, `/users`, `/health`) exposes this for the RN app.
+
+### 5.2 The four dashboard detectors
+1. **Subscription Radar** — recurring charges, classified `new` / `price_hike` / `forgotten` / `active`, each with a `confidence`. Two acceptance paths handle noisy synthetic timing: a strict **cadence** path (regular interval, low variability) *and* a **merchant** path (categorized *Digital & Subscriptions* or named `abonnement`, with a stable amount). Reports monthly/annual subscription spend and offers cancel actions.
+2. **FX & Fee Leakage** — the uniquely-Revolut detector. On this data the txn-vs-bill spread is symmetric noise (nets to ~0), so the robust signal is the explicit `fee_amount_gbp`: total fees, annualized projection, per-month trend, worst offenders, foreign-currency exposure, and **avoidable fees on home-currency (GBP) transactions** flagged explicitly.
+3. **Cashflow Forecast** — net flow over a 30-day horizon (no balance available, so we forecast *flow*, honestly): predicted **upcoming recurring charges** with due dates, projected recurring **income**, and a **discretionary burn** run-rate. Fires when a deficit is projected.
+4. **Peer Benchmarking** — per-category spend vs a demographic cohort (`age_group × region`, falling back to `age_group` when a cell is small). Reports ratio-to-median and percentile, surfacing the categories where the user most outspends peers. Cohort baselines are computed once in `fit`.
+
+### 5.3 Categorization handoff (placeholder mapper)
+The engine consumes the contract `{category, merchant_id, is_recurring, amount_signed_gbp, ...}`. Because the Categorization Engine is built separately, `load_enriched` tolerantly synthesizes any missing contract column from the cleaned substrate — notably a **placeholder MCC→12-category mapper** (`taxonomy.py`). When the real categorizer ships, point `load_enriched(category_col=...)` at its output and the placeholder is bypassed with **no detector changes**.
+
+### 5.4 Breadth (future detectors)
+The framework cleanly accommodates more detectors on the same interface: proactive overspend alert (month-to-date run-rate vs personal baseline), unusual-spend anomaly, and decline-before-payday.
 
 ---
 

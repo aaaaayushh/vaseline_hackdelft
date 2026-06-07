@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "fastapi>=0.115",
     "fastparquet>=2026.5.0",
     "ipykernel>=7.2.0",
     "matplotlib>=3.10.9",
@@ -13,4 +14,5 @@ dependencies = [
     "pyarrow>=24.0.0",
     "scikit-learn>=1.7.2",
     "seaborn>=0.13.2",
+    "uvicorn>=0.30",
 ]

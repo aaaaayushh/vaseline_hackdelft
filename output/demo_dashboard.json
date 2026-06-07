@@ -1,0 +1,532 @@
+{
+  "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+  "generated_at": "2025-12-31T23:59:55.862247",
+  "hero": {
+    "type": "cashflow_forecast",
+    "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+    "title": "Next 30 days: -\u00a31992 projected",
+    "explanation": "Over the next 30 days we expect about \u00a31992 out, including 3 known recurring charges (\u00a312).",
+    "severity": 1.0,
+    "payload": {
+      "as_of": "2025-12-31T23:59:55.862247",
+      "horizon_days": 30,
+      "projected_outflow": 1992.43,
+      "projected_inflow": 0,
+      "projected_net": -1992.43,
+      "known_recurring_outflow": 12.44,
+      "projected_discretionary": 1979.99,
+      "daily_burn_rate": 66.0,
+      "recent_monthly_spend": 1779.32,
+      "upcoming_charges": [
+        {
+          "merchant": "Oude Plein Rijswijk V.O.F.",
+          "date": "2026-01-20T17:54:13",
+          "amount": 3.98,
+          "category": "Digital & Subscriptions"
+        },
+        {
+          "merchant": "Arriva Noord-Brabant B.V.",
+          "date": "2026-01-23T17:10:20.846659",
+          "amount": 1.58,
+          "category": "Transport"
+        },
+        {
+          "merchant": "Nieuwe Brug Eenmanszaak",
+          "date": "2026-01-24T18:21:43.040179",
+          "amount": 6.88,
+          "category": "Digital & Subscriptions"
+        }
+      ],
+      "upcoming_income": []
+    },
+    "actions": [],
+    "level": "alert",
+    "insight_id": "d8e4248041e1e99a"
+  },
+  "insights": [
+    {
+      "type": "cashflow_forecast",
+      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "title": "Next 30 days: -\u00a31992 projected",
+      "explanation": "Over the next 30 days we expect about \u00a31992 out, including 3 known recurring charges (\u00a312).",
+      "severity": 1.0,
+      "payload": {
+        "as_of": "2025-12-31T23:59:55.862247",
+        "horizon_days": 30,
+        "projected_outflow": 1992.43,
+        "projected_inflow": 0,
+        "projected_net": -1992.43,
+        "known_recurring_outflow": 12.44,
+        "projected_discretionary": 1979.99,
+        "daily_burn_rate": 66.0,
+        "recent_monthly_spend": 1779.32,
+        "upcoming_charges": [
+          {
+            "merchant": "Oude Plein Rijswijk V.O.F.",
+            "date": "2026-01-20T17:54:13",
+            "amount": 3.98,
+            "category": "Digital & Subscriptions"
+          },
+          {
+            "merchant": "Arriva Noord-Brabant B.V.",
+            "date": "2026-01-23T17:10:20.846659",
+            "amount": 1.58,
+            "category": "Transport"
+          },
+          {
+            "merchant": "Nieuwe Brug Eenmanszaak",
+            "date": "2026-01-24T18:21:43.040179",
+            "amount": 6.88,
+            "category": "Digital & Subscriptions"
+          }
+        ],
+        "upcoming_income": []
+      },
+      "actions": [],
+      "level": "alert",
+      "insight_id": "d8e4248041e1e99a"
+    },
+    {
+      "type": "peer_benchmarking",
+      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "title": "38.2\u00d7 peers on Entertainment",
+      "explanation": "You spend about \u00a3273/mo on Entertainment \u2014 roughly 38.2\u00d7 the \u00a37 typical for 25-34 \u00b7 Flevoland users (top 1%) (and 5 other categories).",
+      "severity": 1.0,
+      "payload": {
+        "cohort": "25-34 \u00b7 Flevoland",
+        "cohort_size": 170,
+        "categories": [
+          {
+            "category": "Entertainment",
+            "user_monthly": 273.26,
+            "cohort_median": 7.14,
+            "ratio": 38.25,
+            "percentile": 0.99
+          },
+          {
+            "category": "Digital & Subscriptions",
+            "user_monthly": 898.75,
+            "cohort_median": 28.13,
+            "ratio": 31.95,
+            "percentile": 1.0
+          },
+          {
+            "category": "Dining & Takeaway",
+            "user_monthly": 222.57,
+            "cohort_median": 25.39,
+            "ratio": 8.76,
+            "percentile": 0.977
+          },
+          {
+            "category": "Transport",
+            "user_monthly": 97.29,
+            "cohort_median": 14.86,
+            "ratio": 6.55,
+            "percentile": 0.976
+          },
+          {
+            "category": "Groceries",
+            "user_monthly": 99.44,
+            "cohort_median": 20.71,
+            "ratio": 4.8,
+            "percentile": 0.842
+          },
+          {
+            "category": "Shopping",
+            "user_monthly": 131.17,
+            "cohort_median": 29.67,
+            "ratio": 4.42,
+            "percentile": 0.798
+          },
+          {
+            "category": "Travel",
+            "user_monthly": 49.88,
+            "cohort_median": 30.7,
+            "ratio": 1.62,
+            "percentile": 0.613
+          },
+          {
+            "category": "Bills & Utilities",
+            "user_monthly": 3.06,
+            "cohort_median": 3.37,
+            "ratio": 0.91,
+            "percentile": 0.467
+          }
+        ],
+        "flagged": [
+          {
+            "category": "Entertainment",
+            "user_monthly": 273.26,
+            "cohort_median": 7.14,
+            "ratio": 38.25,
+            "percentile": 0.99
+          },
+          {
+            "category": "Digital & Subscriptions",
+            "user_monthly": 898.75,
+            "cohort_median": 28.13,
+            "ratio": 31.95,
+            "percentile": 1.0
+          },
+          {
+            "category": "Dining & Takeaway",
+            "user_monthly": 222.57,
+            "cohort_median": 25.39,
+            "ratio": 8.76,
+            "percentile": 0.977
+          },
+          {
+            "category": "Transport",
+            "user_monthly": 97.29,
+            "cohort_median": 14.86,
+            "ratio": 6.55,
+            "percentile": 0.976
+          },
+          {
+            "category": "Groceries",
+            "user_monthly": 99.44,
+            "cohort_median": 20.71,
+            "ratio": 4.8,
+            "percentile": 0.842
+          },
+          {
+            "category": "Shopping",
+            "user_monthly": 131.17,
+            "cohort_median": 29.67,
+            "ratio": 4.42,
+            "percentile": 0.798
+          }
+        ]
+      },
+      "actions": [],
+      "level": "alert",
+      "insight_id": "a89fef88a7913d50"
+    },
+    {
+      "type": "fx_fee_leakage",
+      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "title": "\u00a344.21 in fees \u00b7 ~\u00a389/yr",
+      "explanation": "You've paid \u00a344.21 in fees; \u00a30.13 of it on GBP transactions that shouldn't carry FX fees; 99% of your spend is in 38 foreign currencies.",
+      "severity": 0.6623,
+      "payload": {
+        "total_fees": 44.21,
+        "annual_projection": 88.66,
+        "n_fee_txns": 28,
+        "avg_fee": 1.58,
+        "avoidable_home_currency_fees": 0.13,
+        "foreign_spend_share": 0.9901,
+        "currency_count": 38,
+        "monthly_fees": [
+          {
+            "month": "2025-07",
+            "fees": 5.62
+          },
+          {
+            "month": "2025-08",
+            "fees": 5.49
+          },
+          {
+            "month": "2025-09",
+            "fees": 4.49
+          },
+          {
+            "month": "2025-10",
+            "fees": 15.08
+          },
+          {
+            "month": "2025-11",
+            "fees": 6.54
+          },
+          {
+            "month": "2025-12",
+            "fees": 6.99
+          }
+        ],
+        "top_fees": [
+          {
+            "merchant": "Frituur Rode",
+            "fee": 3.86,
+            "currency": "THB",
+            "date": "2025-10-17T10:05:37.300996"
+          },
+          {
+            "merchant": "Piet & Piet Capelle",
+            "fee": 3.86,
+            "currency": "HUF",
+            "date": "2025-07-30T08:57:47.550609"
+          },
+          {
+            "merchant": "Sofie & Sofie Voorburg",
+            "fee": 3.86,
+            "currency": "RON",
+            "date": "2025-12-31T04:23:07.137077"
+          },
+          {
+            "merchant": "Blauwe Brug",
+            "fee": 3.86,
+            "currency": "RON",
+            "date": "2025-08-26T07:45:46"
+          },
+          {
+            "merchant": "Frituur Rode",
+            "fee": 3.86,
+            "currency": "BGN",
+            "date": "2025-11-28T12:23:58.758843"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "action": "review_card_plan",
+          "reason": "avoidable_home_currency_fees",
+          "amount": 0.13
+        }
+      ],
+      "level": "warning",
+      "insight_id": "54d0606aa996018a"
+    }
+  ],
+  "sections": {
+    "cashflow_forecast": {
+      "type": "cashflow_forecast",
+      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "title": "Next 30 days: -\u00a31992 projected",
+      "explanation": "Over the next 30 days we expect about \u00a31992 out, including 3 known recurring charges (\u00a312).",
+      "severity": 1.0,
+      "payload": {
+        "as_of": "2025-12-31T23:59:55.862247",
+        "horizon_days": 30,
+        "projected_outflow": 1992.43,
+        "projected_inflow": 0,
+        "projected_net": -1992.43,
+        "known_recurring_outflow": 12.44,
+        "projected_discretionary": 1979.99,
+        "daily_burn_rate": 66.0,
+        "recent_monthly_spend": 1779.32,
+        "upcoming_charges": [
+          {
+            "merchant": "Oude Plein Rijswijk V.O.F.",
+            "date": "2026-01-20T17:54:13",
+            "amount": 3.98,
+            "category": "Digital & Subscriptions"
+          },
+          {
+            "merchant": "Arriva Noord-Brabant B.V.",
+            "date": "2026-01-23T17:10:20.846659",
+            "amount": 1.58,
+            "category": "Transport"
+          },
+          {
+            "merchant": "Nieuwe Brug Eenmanszaak",
+            "date": "2026-01-24T18:21:43.040179",
+            "amount": 6.88,
+            "category": "Digital & Subscriptions"
+          }
+        ],
+        "upcoming_income": []
+      },
+      "actions": [],
+      "level": "alert",
+      "insight_id": "d8e4248041e1e99a"
+    },
+    "peer_benchmarking": {
+      "type": "peer_benchmarking",
+      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "title": "38.2\u00d7 peers on Entertainment",
+      "explanation": "You spend about \u00a3273/mo on Entertainment \u2014 roughly 38.2\u00d7 the \u00a37 typical for 25-34 \u00b7 Flevoland users (top 1%) (and 5 other categories).",
+      "severity": 1.0,
+      "payload": {
+        "cohort": "25-34 \u00b7 Flevoland",
+        "cohort_size": 170,
+        "categories": [
+          {
+            "category": "Entertainment",
+            "user_monthly": 273.26,
+            "cohort_median": 7.14,
+            "ratio": 38.25,
+            "percentile": 0.99
+          },
+          {
+            "category": "Digital & Subscriptions",
+            "user_monthly": 898.75,
+            "cohort_median": 28.13,
+            "ratio": 31.95,
+            "percentile": 1.0
+          },
+          {
+            "category": "Dining & Takeaway",
+            "user_monthly": 222.57,
+            "cohort_median": 25.39,
+            "ratio": 8.76,
+            "percentile": 0.977
+          },
+          {
+            "category": "Transport",
+            "user_monthly": 97.29,
+            "cohort_median": 14.86,
+            "ratio": 6.55,
+            "percentile": 0.976
+          },
+          {
+            "category": "Groceries",
+            "user_monthly": 99.44,
+            "cohort_median": 20.71,
+            "ratio": 4.8,
+            "percentile": 0.842
+          },
+          {
+            "category": "Shopping",
+            "user_monthly": 131.17,
+            "cohort_median": 29.67,
+            "ratio": 4.42,
+            "percentile": 0.798
+          },
+          {
+            "category": "Travel",
+            "user_monthly": 49.88,
+            "cohort_median": 30.7,
+            "ratio": 1.62,
+            "percentile": 0.613
+          },
+          {
+            "category": "Bills & Utilities",
+            "user_monthly": 3.06,
+            "cohort_median": 3.37,
+            "ratio": 0.91,
+            "percentile": 0.467
+          }
+        ],
+        "flagged": [
+          {
+            "category": "Entertainment",
+            "user_monthly": 273.26,
+            "cohort_median": 7.14,
+            "ratio": 38.25,
+            "percentile": 0.99
+          },
+          {
+            "category": "Digital & Subscriptions",
+            "user_monthly": 898.75,
+            "cohort_median": 28.13,
+            "ratio": 31.95,
+            "percentile": 1.0
+          },
+          {
+            "category": "Dining & Takeaway",
+            "user_monthly": 222.57,
+            "cohort_median": 25.39,
+            "ratio": 8.76,
+            "percentile": 0.977
+          },
+          {
+            "category": "Transport",
+            "user_monthly": 97.29,
+            "cohort_median": 14.86,
+            "ratio": 6.55,
+            "percentile": 0.976
+          },
+          {
+            "category": "Groceries",
+            "user_monthly": 99.44,
+            "cohort_median": 20.71,
+            "ratio": 4.8,
+            "percentile": 0.842
+          },
+          {
+            "category": "Shopping",
+            "user_monthly": 131.17,
+            "cohort_median": 29.67,
+            "ratio": 4.42,
+            "percentile": 0.798
+          }
+        ]
+      },
+      "actions": [],
+      "level": "alert",
+      "insight_id": "a89fef88a7913d50"
+    },
+    "fx_fee_leakage": {
+      "type": "fx_fee_leakage",
+      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "title": "\u00a344.21 in fees \u00b7 ~\u00a389/yr",
+      "explanation": "You've paid \u00a344.21 in fees; \u00a30.13 of it on GBP transactions that shouldn't carry FX fees; 99% of your spend is in 38 foreign currencies.",
+      "severity": 0.6623,
+      "payload": {
+        "total_fees": 44.21,
+        "annual_projection": 88.66,
+        "n_fee_txns": 28,
+        "avg_fee": 1.58,
+        "avoidable_home_currency_fees": 0.13,
+        "foreign_spend_share": 0.9901,
+        "currency_count": 38,
+        "monthly_fees": [
+          {
+            "month": "2025-07",
+            "fees": 5.62
+          },
+          {
+            "month": "2025-08",
+            "fees": 5.49
+          },
+          {
+            "month": "2025-09",
+            "fees": 4.49
+          },
+          {
+            "month": "2025-10",
+            "fees": 15.08
+          },
+          {
+            "month": "2025-11",
+            "fees": 6.54
+          },
+          {
+            "month": "2025-12",
+            "fees": 6.99
+          }
+        ],
+        "top_fees": [
+          {
+            "merchant": "Frituur Rode",
+            "fee": 3.86,
+            "currency": "THB",
+            "date": "2025-10-17T10:05:37.300996"
+          },
+          {
+            "merchant": "Piet & Piet Capelle",
+            "fee": 3.86,
+            "currency": "HUF",
+            "date": "2025-07-30T08:57:47.550609"
+          },
+          {
+            "merchant": "Sofie & Sofie Voorburg",
+            "fee": 3.86,
+            "currency": "RON",
+            "date": "2025-12-31T04:23:07.137077"
+          },
+          {
+            "merchant": "Blauwe Brug",
+            "fee": 3.86,
+            "currency": "RON",
+            "date": "2025-08-26T07:45:46"
+          },
+          {
+            "merchant": "Frituur Rode",
+            "fee": 3.86,
+            "currency": "BGN",
+            "date": "2025-11-28T12:23:58.758843"
+          }
+        ]
+      },
+      "actions": [
+        {
+          "action": "review_card_plan",
+          "reason": "avoidable_home_currency_fees",
+          "amount": 0.13
+        }
+      ],
+      "level": "warning",
+      "insight_id": "54d0606aa996018a"
+    }
+  }
+}
