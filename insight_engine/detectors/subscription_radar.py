@@ -58,8 +58,9 @@ class SubscriptionRadar(InsightDetector):
 
     @staticmethod
     def _is_subscription_merchant(g: pd.DataFrame, name: str) -> bool:
+        from ..taxonomy import SUBSCRIPTION_CATEGORIES
         cat = str(g["category"].mode().iloc[0])
-        return cat == "Digital & Subscriptions" or "abonnement" in name.lower()
+        return cat in SUBSCRIPTION_CATEGORIES or "abonnement" in name.lower()
 
     def detect(self, user_df: pd.DataFrame, ctx: EngineContext) -> list[Insight]:
         pay = user_df[user_df["type"].eq("CARD_PAYMENT")]

@@ -91,6 +91,9 @@ def load_enriched(
         df["category"] = df[category_col]
     elif "category" not in df.columns or _looks_like_raw_mcc_labels(df):
         df["category"] = taxonomy.derive_category(df)
+    # Collapse the categorizer's richer 16-category labels onto the canonical
+    # 12-category budgeting taxonomy so either engine's output uses one contract.
+    df["category"] = taxonomy.normalize_category(df["category"])
 
     # --- merchant_id ----------------------------------------------------- #
     if "merchant_id" not in df.columns:

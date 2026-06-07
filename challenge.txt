@@ -1,0 +1,147 @@
+Presentation / Team
+Revolut AI Challenge
+© 2026 Revolut. All rights reserved.
+
+HackDelft 2026
+
+Presentation / Team
+Revolut AI Challenge
+From transaction data to financial Intelligence
+At Revolut, we don't just want to show users where their money went; we want to help them make smarter financial decisions for their future. Transaction categorization remains a major industry challenge:
+ Supermarket purchases may be tagged as Shopping instead of Groceries
+ Inaccurate categorization leads to poor budgeting insights
+ Users struggle to understand their spending habits
+Notes
+© 2026 Revolut. All rights reserved.
+
+Core Challenge
+Design a framework for an AI system that improves Revolut's spending analytics. Your goal is to outline the logic behind the solution, but we also encourage teams to build a proof of concept that demonstrates how key elements of their approach could work in practice.
+Your framework must explain the following three components:
+
+Categorization Logic
+How would your system automatically assign an accurate category to a transaction? (e.g., based on merchant name, time, amount, user history).
+
+Insight Engine
+Once transactions are categorized, what is one specific, valuable insight your system would provide to a user? (e.g., alert them when they are overspending in a category, identify a new recurring subscription).
+
+User Interaction
+How would the user receive this insight? (e.g., a push notification, a summary in the app).
+
+© 2026 Revolut. All rights reserved.
+
+3
+
+Resources Provided
+You will be working with a sanitized and anonymized synthetic dataset that mirrors real-world transaction data
+
+Data Description Total Transactions User Scope
+Time Period Columns
+
+Value
+1,000,000
+Synthetically generated data similar to European users Q3Q4 2024
+Includes anonymized transaction_id, owner_id, amount, merchant data, category, date, and user demographic data.
+
+© 2026 Revolut. All rights reserved.
+
+4
+
+Core Challenge
+
+Categorization Logic
+
+Insight Engine
+
+User Interaction
+
+© 2026 Revolut. All rights reserved.
+
+Best Product
+5
+
+Final Deliverables
+1Page Executive Summary PDF
+A concise document outlining your proposed framework,
+covering both the categorizer and the AI advisor.
+© 2026 Revolut. All rights reserved.
+
+10Minute Presentation
+A slide deck (e.g., Google Slides, PowerPoint) to present your solution to the judges, followed by a 5-minute Q&A
+
+Judging Criteria
+
+Technical Depth & Creativity 40%
+
+Business Impact & Feasibility 30%
+
+User Experience UX Design 20%
+
+The ingenuity and feasibility of your proposed AI/ML logic for both categorization and financial advice
+
+How your solution adds value to Revolut and its users, and how practical it would be to implement
+
+The quality of your thinking about the user's interaction with the AI advisor.
+
+Presentation Quality 10%
+The clarity and persuasiveness of your presentation.
+
+© 2026 Revolut. All rights reserved.
+
+7
+
+Our 2 Core Programmes
+For Interns and Graduates
+
+Internship Programme
+ Global summer intake June/July for 10 weeks)  Penultimate year students from leading global universities  Top performers receive return offers for the Graduate Programme
+© 2026 Revolut. All rights reserved.
+
+Graduate Programme
+ Autumn and Spring start dates  12-month programme for recent graduates of leading global universities  Top performers progress quickly into a Junior role
+
+Where We Hire
+Global Hiring and Relocation
+Hybrid working
+across multiple locations.
+Relocation
+we can relocate exceptional talent globally, supporting visas, flights and accommodation.
+© 2026 Revolut. All rights reserved.
+
+Recruitment Timeline
+
+Now
+
+May - Aug 2026
+
+Pre-onboarding engagement
+
+Jun 2027 Sept 2027
+
+Applications
+Receive unique link to apply to our roles
+
+Recruitment Process
+1. Screen Call 2. Skills rounds depending on the role:
+Livecoding, Technical test for Engineering & Data 3. Team Fit Call 4. Outcome/Offer
+
+Relocation preparation
+Time for Visa, documentation, and preparation for relocation.
+
+Programme launch
+Welcome on board!
+
+© 2026 Revolut. All rights reserved.
+
+Scan the QR code to learn more about our job opportunities
+
+© 2026 Revolut. All rights reserved.
+
+11
+
+Thank you
+
+© 2026 Revolut. All rights reserved.
+
+12
+
+

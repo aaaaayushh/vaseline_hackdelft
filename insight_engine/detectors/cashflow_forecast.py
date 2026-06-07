@@ -104,21 +104,29 @@ class CashflowForecast(InsightDetector):
         projected_outflow = round(known_outflow + projected_discretionary, 2)
         projected_net = round(projected_inflow - projected_outflow, 2)
 
-        # Severity: a projected deficit is the thing to flag, scaled by size.
+        # NOTE: this synthetic data has no recurring income (DESIGN.md §5.3 — 4
+        # users have credits in ≥3 months), so a "projected net deficit" has no
+        # honest inflow to net against and we deliberately do NOT headline it.
+        # This detector is a *context tile*: "here are the known charges coming
+        # up", driven by the real, predicted recurring outflows. Severity stays
+        # low so it never masquerades as an alert.
+        if not upcoming:
+            return []
         recent_monthly = float(payments["txn_amount_gbp"].abs().sum()) / max(
             (as_of - payments["created_date"].min()).days, 1) * 30.4
-        sev = 0.2
-        if projected_net < 0 and recent_monthly > 0:
-            sev = min(1.0, 0.5 + min(0.5, abs(projected_net) / recent_monthly))
+        # scale gently with how big the known charges are vs the user's month
+        sev = min(0.5, 0.2 + min(0.3, known_outflow / max(recent_monthly, 1.0)))
 
-        title = (f"Next {self.horizon_days} days: "
-                 f"{'-' if projected_net < 0 else '+'}£{abs(projected_net):.0f} projected")
+        next_charge = upcoming[0]
+        days_until = max((next_charge["date"] - as_of).days, 0)
+        title = (f"£{known_outflow:.0f} in upcoming charges · next "
+                 f"{self.horizon_days} days")
         explanation = (
-            f"Over the next {self.horizon_days} days we expect about "
-            f"£{projected_outflow:.0f} out"
-            + (f" and £{projected_inflow:.0f} in" if projected_inflow else "")
-            + f", including {len(upcoming)} known recurring charge"
-            f"{'s' if len(upcoming) != 1 else ''} (£{known_outflow:.0f})."
+            f"You have {len(upcoming)} known recurring charge"
+            f"{'s' if len(upcoming) != 1 else ''} totalling about "
+            f"£{known_outflow:.0f} due in the next {self.horizon_days} days — "
+            f"next up {next_charge['merchant']} (£{next_charge['amount']:.0f}) in "
+            f"{days_until} day{'s' if days_until != 1 else ''}."
         )
 
         return [Insight(

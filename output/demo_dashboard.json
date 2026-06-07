@@ -1,748 +1,538 @@
 {
-  "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+  "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
   "generated_at": "2025-12-31T23:59:55.862247",
   "hero": {
-    "type": "cashflow_forecast",
-    "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-    "title": "Next 30 days: -\u00a31992 projected",
-    "explanation": "Over the next 30 days we expect about \u00a31992 out, including 3 known recurring charges (\u00a312).",
+    "type": "decline_shield",
+    "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+    "title": "Avoid your next decline \u00b7 8 so far",
+    "explanation": "You've had 8 payments declined for insufficient balance (6 months running) and Eetcafe Blauwe (\u00a316.55) is due in 3 days. Top up to avoid another one.",
     "severity": 1.0,
     "payload": {
-      "as_of": "2025-12-31T23:59:55.862247",
-      "horizon_days": 30,
-      "projected_outflow": 1992.43,
-      "projected_inflow": 0,
-      "projected_net": -1992.43,
-      "known_recurring_outflow": 12.44,
-      "projected_discretionary": 1979.99,
-      "daily_burn_rate": 66.0,
-      "recent_monthly_spend": 1779.32,
-      "upcoming_charges": [
-        {
-          "merchant": "Oude Plein Rijswijk V.O.F.",
-          "merchant_id": "m_00213",
-          "date": "2026-01-20T17:54:13",
-          "amount": 3.98,
-          "category": "Digital & Subscriptions"
-        },
-        {
-          "merchant": "Arriva Noord-Brabant B.V.",
-          "merchant_id": "m_00039",
-          "date": "2026-01-23T17:10:20.846659",
-          "amount": 1.58,
-          "category": "Transport"
-        },
-        {
-          "merchant": "Nieuwe Brug Eenmanszaak",
-          "merchant_id": "m_00016",
-          "date": "2026-01-24T18:21:43.040179",
-          "amount": 6.88,
-          "category": "Digital & Subscriptions"
-        }
+      "n_declines": 13,
+      "n_insufficient_balance": 8,
+      "n_recent": 1,
+      "months_with_declines": 6,
+      "chronic": true,
+      "decline_rate_pct": 27.1,
+      "last_decline": "2025-12-10T18:39:51.321663",
+      "declined_at_merchants": [
+        "gracht.app",
+        "Spoorvervoer 8",
+        "tulp.nl/abonnement"
       ],
-      "upcoming_income": []
+      "next_recurring_charge": {
+        "merchant": "Eetcafe Blauwe",
+        "amount": 16.55,
+        "date": "2026-01-04T15:40:53",
+        "category": "Dining & Takeaway",
+        "days_until": 3
+      }
     },
-    "actions": [],
+    "actions": [
+      {
+        "action": "top_up_reminder",
+        "reason": "prevent_insufficient_balance_decline",
+        "before_date": "2026-01-04T15:40:53",
+        "merchant": "Eetcafe Blauwe",
+        "amount_due": 16.55
+      }
+    ],
     "level": "alert",
-    "insight_id": "d8e4248041e1e99a"
+    "insight_id": "0d580947a6289262"
   },
   "insights": [
     {
-      "type": "cashflow_forecast",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "Next 30 days: -\u00a31992 projected",
-      "explanation": "Over the next 30 days we expect about \u00a31992 out, including 3 known recurring charges (\u00a312).",
+      "type": "decline_shield",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "Avoid your next decline \u00b7 8 so far",
+      "explanation": "You've had 8 payments declined for insufficient balance (6 months running) and Eetcafe Blauwe (\u00a316.55) is due in 3 days. Top up to avoid another one.",
       "severity": 1.0,
+      "payload": {
+        "n_declines": 13,
+        "n_insufficient_balance": 8,
+        "n_recent": 1,
+        "months_with_declines": 6,
+        "chronic": true,
+        "decline_rate_pct": 27.1,
+        "last_decline": "2025-12-10T18:39:51.321663",
+        "declined_at_merchants": [
+          "gracht.app",
+          "Spoorvervoer 8",
+          "tulp.nl/abonnement"
+        ],
+        "next_recurring_charge": {
+          "merchant": "Eetcafe Blauwe",
+          "amount": 16.55,
+          "date": "2026-01-04T15:40:53",
+          "category": "Dining & Takeaway",
+          "days_until": 3
+        }
+      },
+      "actions": [
+        {
+          "action": "top_up_reminder",
+          "reason": "prevent_insufficient_balance_decline",
+          "before_date": "2026-01-04T15:40:53",
+          "merchant": "Eetcafe Blauwe",
+          "amount_due": 16.55
+        }
+      ],
+      "level": "alert",
+      "insight_id": "0d580947a6289262"
+    },
+    {
+      "type": "overspend_alert",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "48% over your usual Digital & Subscriptions",
+      "explanation": "You spent \u00a356 on Digital & Subscriptions this month \u2014 about 48% above your usual \u00a338.",
+      "severity": 0.738,
+      "payload": {
+        "as_of": "2025-12-31T23:59:55.862247",
+        "month": "2025-12",
+        "month_progress_pct": 100.0,
+        "top_category": "Digital & Subscriptions",
+        "overspending_categories": [
+          {
+            "category": "Digital & Subscriptions",
+            "baseline": 37.83,
+            "month_to_date": 56.04,
+            "projected": 56.04,
+            "overshoot_pct": 48.0,
+            "robust_z": 1.05,
+            "month_progress_pct": 100.0,
+            "history_months": 4
+          }
+        ]
+      },
+      "actions": [
+        {
+          "action": "set_budget",
+          "category": "Digital & Subscriptions",
+          "suggested_monthly": 37.83,
+          "reason": "projected_overspend"
+        }
+      ],
+      "level": "warning",
+      "insight_id": "9fa6ff415795ee69"
+    },
+    {
+      "type": "cashflow_forecast",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "\u00a348 in upcoming charges \u00b7 next 30 days",
+      "explanation": "You have 3 known recurring charges totalling about \u00a348 due in the next 30 days \u2014 next up Eetcafe Blauwe (\u00a317) in 3 days.",
+      "severity": 0.5,
       "payload": {
         "as_of": "2025-12-31T23:59:55.862247",
         "horizon_days": 30,
-        "projected_outflow": 1992.43,
+        "projected_outflow": 267.37,
         "projected_inflow": 0,
-        "projected_net": -1992.43,
-        "known_recurring_outflow": 12.44,
-        "projected_discretionary": 1979.99,
-        "daily_burn_rate": 66.0,
-        "recent_monthly_spend": 1779.32,
+        "projected_net": -267.37,
+        "known_recurring_outflow": 47.83,
+        "projected_discretionary": 219.54,
+        "daily_burn_rate": 7.32,
+        "recent_monthly_spend": 152.32,
         "upcoming_charges": [
           {
-            "merchant": "Oude Plein Rijswijk V.O.F.",
-            "merchant_id": "m_00213",
-            "date": "2026-01-20T17:54:13",
-            "amount": 3.98,
-            "category": "Digital & Subscriptions"
+            "merchant": "Eetcafe Blauwe",
+            "merchant_id": "m_00043",
+            "date": "2026-01-04T15:40:53",
+            "amount": 16.55,
+            "category": "Dining & Takeaway"
           },
           {
-            "merchant": "Arriva Noord-Brabant B.V.",
-            "merchant_id": "m_00039",
-            "date": "2026-01-23T17:10:20.846659",
-            "amount": 1.58,
-            "category": "Transport"
+            "merchant": "Eetcafe Blauwe",
+            "merchant_id": "m_00043",
+            "date": "2026-01-26T03:40:53",
+            "amount": 16.55,
+            "category": "Dining & Takeaway"
           },
           {
-            "merchant": "Nieuwe Brug Eenmanszaak",
-            "merchant_id": "m_00016",
-            "date": "2026-01-24T18:21:43.040179",
-            "amount": 6.88,
+            "merchant": "gracht.app",
+            "merchant_id": "m_00007",
+            "date": "2026-01-26T14:42:17.785496",
+            "amount": 14.73,
             "category": "Digital & Subscriptions"
           }
         ],
         "upcoming_income": []
       },
       "actions": [],
-      "level": "alert",
-      "insight_id": "d8e4248041e1e99a"
-    },
-    {
-      "type": "subscription_radar",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "3 subscriptions \u00b7 \u00a332/mo",
-      "explanation": "We found 3 recurring charges totalling about \u00a332 a month (1 price increase; 1 you may have forgotten).",
-      "severity": 0.95,
-      "payload": {
-        "monthly_total": 32.21,
-        "annual_total": 386.52,
-        "count": 3,
-        "status_counts": {
-          "new": 0,
-          "price_hike": 1,
-          "forgotten": 1,
-          "active": 1
-        },
-        "subscriptions": [
-          {
-            "merchant": "winkel.nl",
-            "merchant_id": "m_00024",
-            "category": "Digital & Subscriptions",
-            "cadence": "irregular",
-            "cadence_days": 39.5,
-            "amount": 16.58,
-            "latest_amount": 11.7,
-            "monthly_cost": 18.98,
-            "n_charges": 3,
-            "first_seen": "2025-08-02T14:22:42",
-            "last_seen": "2025-10-21T14:05:36.910776",
-            "next_expected": "2025-11-30T02:05:36.910776",
-            "status": "active",
-            "confidence": 0.4,
-            "price_increase_pct": null
-          },
-          {
-            "merchant": "Nieuwe Brug Eenmanszaak",
-            "merchant_id": "m_00016",
-            "category": "Digital & Subscriptions",
-            "cadence": "monthly",
-            "cadence_days": 30.4,
-            "amount": 6.88,
-            "latest_amount": 8.89,
-            "monthly_cost": 6.88,
-            "n_charges": 11,
-            "first_seen": "2025-08-17T12:25:14.405880",
-            "last_seen": "2025-12-31T18:21:43.040179",
-            "next_expected": "2026-01-31T03:57:43.040178999",
-            "status": "price_hike",
-            "confidence": 0.61,
-            "price_increase_pct": 32.4
-          },
-          {
-            "merchant": "Zilveren Park Hilversum",
-            "merchant_id": "m_00255",
-            "category": "Digital & Subscriptions",
-            "cadence": "monthly",
-            "cadence_days": 30.4,
-            "amount": 6.35,
-            "latest_amount": 6.01,
-            "monthly_cost": 6.35,
-            "n_charges": 5,
-            "first_seen": "2025-07-31T10:50:45.416720",
-            "last_seen": "2025-11-24T14:32:45.371747",
-            "next_expected": "2025-12-25T00:08:45.371746999",
-            "status": "forgotten",
-            "confidence": 0.5,
-            "price_increase_pct": null
-          }
-        ]
-      },
-      "actions": [
-        {
-          "action": "cancel_subscription",
-          "merchant": "Nieuwe Brug Eenmanszaak",
-          "monthly_cost": 6.88,
-          "reason": "price_hike"
-        },
-        {
-          "action": "cancel_subscription",
-          "merchant": "Zilveren Park Hilversum",
-          "monthly_cost": 6.35,
-          "reason": "forgotten"
-        }
-      ],
-      "level": "alert",
-      "insight_id": "60bba050d82aadc9"
+      "level": "warning",
+      "insight_id": "c76a5758e94a140f"
     },
     {
       "type": "peer_benchmarking",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "43.9\u00d7 peers on Entertainment",
-      "explanation": "You spend about \u00a3267/mo on Entertainment \u2014 roughly 43.9\u00d7 the \u00a36 typical for 25-34 \u00b7 Flevoland users (top 1%) (and 6 other categories).",
-      "severity": 1.0,
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "You're in line with your peers",
+      "explanation": "Your category spend tracks the typical 25-34 \u00b7 Noord-Holland user.",
+      "severity": 0.15,
       "payload": {
-        "cohort": "25-34 \u00b7 Flevoland",
-        "cohort_size": 167,
+        "cohort": "25-34 \u00b7 Noord-Holland",
+        "cohort_size": 1673,
         "categories": [
           {
-            "category": "Entertainment",
-            "user_monthly": 267.1,
-            "cohort_median": 6.09,
-            "ratio": 43.87,
-            "percentile": 0.988
-          },
-          {
             "category": "Digital & Subscriptions",
-            "user_monthly": 916.08,
-            "cohort_median": 27.31,
-            "ratio": 33.55,
-            "percentile": 1.0
-          },
-          {
-            "category": "Dining & Takeaway",
-            "user_monthly": 233.19,
-            "cohort_median": 25.47,
-            "ratio": 9.16,
-            "percentile": 0.97
-          },
-          {
-            "category": "Transport",
-            "user_monthly": 97.29,
-            "cohort_median": 15.29,
-            "ratio": 6.36,
-            "percentile": 0.928
-          },
-          {
-            "category": "Shopping",
-            "user_monthly": 126.21,
-            "cohort_median": 26.7,
-            "ratio": 4.73,
-            "percentile": 0.839
-          },
-          {
-            "category": "Bills & Utilities",
-            "user_monthly": 28.46,
-            "cohort_median": 7.78,
-            "ratio": 3.66,
-            "percentile": 0.784
+            "user_monthly": 63.4,
+            "cohort_median": 27.34,
+            "ratio": 2.32,
+            "percentile": 0.716
           },
           {
             "category": "Groceries",
-            "user_monthly": 57.66,
-            "cohort_median": 16.3,
-            "ratio": 3.54,
-            "percentile": 0.785
+            "user_monthly": 33.3,
+            "cohort_median": 17.43,
+            "ratio": 1.91,
+            "percentile": 0.654
           },
           {
-            "category": "Travel",
-            "user_monthly": 39.67,
-            "cohort_median": 35.53,
-            "ratio": 1.12,
-            "percentile": 0.579
+            "category": "Dining & Takeaway",
+            "user_monthly": 28.73,
+            "cohort_median": 20.88,
+            "ratio": 1.38,
+            "percentile": 0.569
           },
           {
-            "category": "Health",
-            "user_monthly": 4.48,
-            "cohort_median": 5.95,
-            "ratio": 0.75,
-            "percentile": 0.34
+            "category": "Transport",
+            "user_monthly": 5.98,
+            "cohort_median": 10.86,
+            "ratio": 0.55,
+            "percentile": 0.372
+          },
+          {
+            "category": "Entertainment",
+            "user_monthly": 2.53,
+            "cohort_median": 7.43,
+            "ratio": 0.34,
+            "percentile": 0.27
+          },
+          {
+            "category": "Shopping",
+            "user_monthly": 7.19,
+            "cohort_median": 21.27,
+            "ratio": 0.34,
+            "percentile": 0.279
           }
         ],
-        "flagged": [
-          {
-            "category": "Entertainment",
-            "user_monthly": 267.1,
-            "cohort_median": 6.09,
-            "ratio": 43.87,
-            "percentile": 0.988
-          },
-          {
-            "category": "Digital & Subscriptions",
-            "user_monthly": 916.08,
-            "cohort_median": 27.31,
-            "ratio": 33.55,
-            "percentile": 1.0
-          },
-          {
-            "category": "Dining & Takeaway",
-            "user_monthly": 233.19,
-            "cohort_median": 25.47,
-            "ratio": 9.16,
-            "percentile": 0.97
-          },
-          {
-            "category": "Transport",
-            "user_monthly": 97.29,
-            "cohort_median": 15.29,
-            "ratio": 6.36,
-            "percentile": 0.928
-          },
-          {
-            "category": "Shopping",
-            "user_monthly": 126.21,
-            "cohort_median": 26.7,
-            "ratio": 4.73,
-            "percentile": 0.839
-          },
-          {
-            "category": "Bills & Utilities",
-            "user_monthly": 28.46,
-            "cohort_median": 7.78,
-            "ratio": 3.66,
-            "percentile": 0.784
-          },
-          {
-            "category": "Groceries",
-            "user_monthly": 57.66,
-            "cohort_median": 16.3,
-            "ratio": 3.54,
-            "percentile": 0.785
-          }
-        ]
+        "flagged": []
       },
       "actions": [],
-      "level": "alert",
-      "insight_id": "468cf62016449c7e"
+      "level": "info",
+      "insight_id": "4a1493a9dbdc6354"
     },
     {
       "type": "fx_fee_leakage",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "\u00a344.21 in fees \u00b7 ~\u00a389/yr",
-      "explanation": "You've paid \u00a344.21 in fees; \u00a30.13 of it on GBP transactions that shouldn't carry FX fees; 99% of your spend is in 38 foreign currencies.",
-      "severity": 0.6623,
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "\u00a30.76 in fees \u00b7 ~\u00a32/yr",
+      "explanation": "You've paid \u00a30.76 in fees; 99% of your spend is in 10 foreign currencies.",
+      "severity": 0.0299,
       "payload": {
-        "total_fees": 44.21,
-        "annual_projection": 88.66,
-        "n_fee_txns": 28,
-        "avg_fee": 1.58,
-        "avoidable_home_currency_fees": 0.13,
-        "foreign_spend_share": 0.9901,
-        "currency_count": 38,
+        "total_fees": 0.76,
+        "annual_projection": 1.64,
+        "n_fee_txns": 3,
+        "avg_fee": 0.25,
+        "avoidable_home_currency_fees": 0.0,
+        "foreign_spend_share": 0.9937,
+        "currency_count": 10,
         "monthly_fees": [
           {
             "month": "2025-07",
-            "fees": 5.62
+            "fees": 0.0
           },
           {
             "month": "2025-08",
-            "fees": 5.49
+            "fees": 0.0
           },
           {
             "month": "2025-09",
-            "fees": 4.49
+            "fees": 0.0
           },
           {
             "month": "2025-10",
-            "fees": 15.08
+            "fees": 0.13
           },
           {
             "month": "2025-11",
-            "fees": 6.54
+            "fees": 0.0
           },
           {
             "month": "2025-12",
-            "fees": 6.99
+            "fees": 0.63
           }
         ],
         "top_fees": [
           {
-            "merchant": "Frituur Rode",
-            "fee": 3.86,
-            "currency": "THB",
-            "date": "2025-10-17T10:05:37.300996"
+            "merchant": "Anne & Anne Amersfoort",
+            "fee": 0.5,
+            "currency": "ZAR",
+            "date": "2025-12-09T12:37:45.603640"
           },
           {
-            "merchant": "Piet & Piet Capelle",
-            "fee": 3.86,
-            "currency": "HUF",
-            "date": "2025-07-30T08:57:47.550609"
+            "merchant": "gracht.nl",
+            "fee": 0.13,
+            "currency": "CZK",
+            "date": "2025-10-14T07:10:21.509972"
           },
           {
-            "merchant": "Sofie & Sofie Voorburg",
-            "fee": 3.86,
-            "currency": "RON",
-            "date": "2025-12-31T04:23:07.137077"
-          },
-          {
-            "merchant": "Blauwe Brug",
-            "fee": 3.86,
-            "currency": "RON",
-            "date": "2025-08-26T07:45:46"
-          },
-          {
-            "merchant": "Frituur Rode",
-            "fee": 3.86,
-            "currency": "BGN",
-            "date": "2025-11-28T12:23:58.758843"
+            "merchant": "Broodjeszaak Eva",
+            "fee": 0.13,
+            "currency": "JOD",
+            "date": "2025-12-11T23:26:38.723414"
           }
         ]
       },
-      "actions": [
-        {
-          "action": "review_card_plan",
-          "reason": "avoidable_home_currency_fees",
-          "amount": 0.13
-        }
-      ],
-      "level": "warning",
-      "insight_id": "54d0606aa996018a"
+      "actions": [],
+      "level": "info",
+      "insight_id": "dadae9aad0f7ecf7"
     }
   ],
   "sections": {
+    "decline_shield": {
+      "type": "decline_shield",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "Avoid your next decline \u00b7 8 so far",
+      "explanation": "You've had 8 payments declined for insufficient balance (6 months running) and Eetcafe Blauwe (\u00a316.55) is due in 3 days. Top up to avoid another one.",
+      "severity": 1.0,
+      "payload": {
+        "n_declines": 13,
+        "n_insufficient_balance": 8,
+        "n_recent": 1,
+        "months_with_declines": 6,
+        "chronic": true,
+        "decline_rate_pct": 27.1,
+        "last_decline": "2025-12-10T18:39:51.321663",
+        "declined_at_merchants": [
+          "gracht.app",
+          "Spoorvervoer 8",
+          "tulp.nl/abonnement"
+        ],
+        "next_recurring_charge": {
+          "merchant": "Eetcafe Blauwe",
+          "amount": 16.55,
+          "date": "2026-01-04T15:40:53",
+          "category": "Dining & Takeaway",
+          "days_until": 3
+        }
+      },
+      "actions": [
+        {
+          "action": "top_up_reminder",
+          "reason": "prevent_insufficient_balance_decline",
+          "before_date": "2026-01-04T15:40:53",
+          "merchant": "Eetcafe Blauwe",
+          "amount_due": 16.55
+        }
+      ],
+      "level": "alert",
+      "insight_id": "0d580947a6289262"
+    },
+    "overspend_alert": {
+      "type": "overspend_alert",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "48% over your usual Digital & Subscriptions",
+      "explanation": "You spent \u00a356 on Digital & Subscriptions this month \u2014 about 48% above your usual \u00a338.",
+      "severity": 0.738,
+      "payload": {
+        "as_of": "2025-12-31T23:59:55.862247",
+        "month": "2025-12",
+        "month_progress_pct": 100.0,
+        "top_category": "Digital & Subscriptions",
+        "overspending_categories": [
+          {
+            "category": "Digital & Subscriptions",
+            "baseline": 37.83,
+            "month_to_date": 56.04,
+            "projected": 56.04,
+            "overshoot_pct": 48.0,
+            "robust_z": 1.05,
+            "month_progress_pct": 100.0,
+            "history_months": 4
+          }
+        ]
+      },
+      "actions": [
+        {
+          "action": "set_budget",
+          "category": "Digital & Subscriptions",
+          "suggested_monthly": 37.83,
+          "reason": "projected_overspend"
+        }
+      ],
+      "level": "warning",
+      "insight_id": "9fa6ff415795ee69"
+    },
     "cashflow_forecast": {
       "type": "cashflow_forecast",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "Next 30 days: -\u00a31992 projected",
-      "explanation": "Over the next 30 days we expect about \u00a31992 out, including 3 known recurring charges (\u00a312).",
-      "severity": 1.0,
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "\u00a348 in upcoming charges \u00b7 next 30 days",
+      "explanation": "You have 3 known recurring charges totalling about \u00a348 due in the next 30 days \u2014 next up Eetcafe Blauwe (\u00a317) in 3 days.",
+      "severity": 0.5,
       "payload": {
         "as_of": "2025-12-31T23:59:55.862247",
         "horizon_days": 30,
-        "projected_outflow": 1992.43,
+        "projected_outflow": 267.37,
         "projected_inflow": 0,
-        "projected_net": -1992.43,
-        "known_recurring_outflow": 12.44,
-        "projected_discretionary": 1979.99,
-        "daily_burn_rate": 66.0,
-        "recent_monthly_spend": 1779.32,
+        "projected_net": -267.37,
+        "known_recurring_outflow": 47.83,
+        "projected_discretionary": 219.54,
+        "daily_burn_rate": 7.32,
+        "recent_monthly_spend": 152.32,
         "upcoming_charges": [
           {
-            "merchant": "Oude Plein Rijswijk V.O.F.",
-            "merchant_id": "m_00213",
-            "date": "2026-01-20T17:54:13",
-            "amount": 3.98,
-            "category": "Digital & Subscriptions"
+            "merchant": "Eetcafe Blauwe",
+            "merchant_id": "m_00043",
+            "date": "2026-01-04T15:40:53",
+            "amount": 16.55,
+            "category": "Dining & Takeaway"
           },
           {
-            "merchant": "Arriva Noord-Brabant B.V.",
-            "merchant_id": "m_00039",
-            "date": "2026-01-23T17:10:20.846659",
-            "amount": 1.58,
-            "category": "Transport"
+            "merchant": "Eetcafe Blauwe",
+            "merchant_id": "m_00043",
+            "date": "2026-01-26T03:40:53",
+            "amount": 16.55,
+            "category": "Dining & Takeaway"
           },
           {
-            "merchant": "Nieuwe Brug Eenmanszaak",
-            "merchant_id": "m_00016",
-            "date": "2026-01-24T18:21:43.040179",
-            "amount": 6.88,
+            "merchant": "gracht.app",
+            "merchant_id": "m_00007",
+            "date": "2026-01-26T14:42:17.785496",
+            "amount": 14.73,
             "category": "Digital & Subscriptions"
           }
         ],
         "upcoming_income": []
       },
       "actions": [],
-      "level": "alert",
-      "insight_id": "d8e4248041e1e99a"
-    },
-    "subscription_radar": {
-      "type": "subscription_radar",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "3 subscriptions \u00b7 \u00a332/mo",
-      "explanation": "We found 3 recurring charges totalling about \u00a332 a month (1 price increase; 1 you may have forgotten).",
-      "severity": 0.95,
-      "payload": {
-        "monthly_total": 32.21,
-        "annual_total": 386.52,
-        "count": 3,
-        "status_counts": {
-          "new": 0,
-          "price_hike": 1,
-          "forgotten": 1,
-          "active": 1
-        },
-        "subscriptions": [
-          {
-            "merchant": "winkel.nl",
-            "merchant_id": "m_00024",
-            "category": "Digital & Subscriptions",
-            "cadence": "irregular",
-            "cadence_days": 39.5,
-            "amount": 16.58,
-            "latest_amount": 11.7,
-            "monthly_cost": 18.98,
-            "n_charges": 3,
-            "first_seen": "2025-08-02T14:22:42",
-            "last_seen": "2025-10-21T14:05:36.910776",
-            "next_expected": "2025-11-30T02:05:36.910776",
-            "status": "active",
-            "confidence": 0.4,
-            "price_increase_pct": null
-          },
-          {
-            "merchant": "Nieuwe Brug Eenmanszaak",
-            "merchant_id": "m_00016",
-            "category": "Digital & Subscriptions",
-            "cadence": "monthly",
-            "cadence_days": 30.4,
-            "amount": 6.88,
-            "latest_amount": 8.89,
-            "monthly_cost": 6.88,
-            "n_charges": 11,
-            "first_seen": "2025-08-17T12:25:14.405880",
-            "last_seen": "2025-12-31T18:21:43.040179",
-            "next_expected": "2026-01-31T03:57:43.040178999",
-            "status": "price_hike",
-            "confidence": 0.61,
-            "price_increase_pct": 32.4
-          },
-          {
-            "merchant": "Zilveren Park Hilversum",
-            "merchant_id": "m_00255",
-            "category": "Digital & Subscriptions",
-            "cadence": "monthly",
-            "cadence_days": 30.4,
-            "amount": 6.35,
-            "latest_amount": 6.01,
-            "monthly_cost": 6.35,
-            "n_charges": 5,
-            "first_seen": "2025-07-31T10:50:45.416720",
-            "last_seen": "2025-11-24T14:32:45.371747",
-            "next_expected": "2025-12-25T00:08:45.371746999",
-            "status": "forgotten",
-            "confidence": 0.5,
-            "price_increase_pct": null
-          }
-        ]
-      },
-      "actions": [
-        {
-          "action": "cancel_subscription",
-          "merchant": "Nieuwe Brug Eenmanszaak",
-          "monthly_cost": 6.88,
-          "reason": "price_hike"
-        },
-        {
-          "action": "cancel_subscription",
-          "merchant": "Zilveren Park Hilversum",
-          "monthly_cost": 6.35,
-          "reason": "forgotten"
-        }
-      ],
-      "level": "alert",
-      "insight_id": "60bba050d82aadc9"
+      "level": "warning",
+      "insight_id": "c76a5758e94a140f"
     },
     "peer_benchmarking": {
       "type": "peer_benchmarking",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "43.9\u00d7 peers on Entertainment",
-      "explanation": "You spend about \u00a3267/mo on Entertainment \u2014 roughly 43.9\u00d7 the \u00a36 typical for 25-34 \u00b7 Flevoland users (top 1%) (and 6 other categories).",
-      "severity": 1.0,
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "You're in line with your peers",
+      "explanation": "Your category spend tracks the typical 25-34 \u00b7 Noord-Holland user.",
+      "severity": 0.15,
       "payload": {
-        "cohort": "25-34 \u00b7 Flevoland",
-        "cohort_size": 167,
+        "cohort": "25-34 \u00b7 Noord-Holland",
+        "cohort_size": 1673,
         "categories": [
           {
-            "category": "Entertainment",
-            "user_monthly": 267.1,
-            "cohort_median": 6.09,
-            "ratio": 43.87,
-            "percentile": 0.988
-          },
-          {
             "category": "Digital & Subscriptions",
-            "user_monthly": 916.08,
-            "cohort_median": 27.31,
-            "ratio": 33.55,
-            "percentile": 1.0
-          },
-          {
-            "category": "Dining & Takeaway",
-            "user_monthly": 233.19,
-            "cohort_median": 25.47,
-            "ratio": 9.16,
-            "percentile": 0.97
-          },
-          {
-            "category": "Transport",
-            "user_monthly": 97.29,
-            "cohort_median": 15.29,
-            "ratio": 6.36,
-            "percentile": 0.928
-          },
-          {
-            "category": "Shopping",
-            "user_monthly": 126.21,
-            "cohort_median": 26.7,
-            "ratio": 4.73,
-            "percentile": 0.839
-          },
-          {
-            "category": "Bills & Utilities",
-            "user_monthly": 28.46,
-            "cohort_median": 7.78,
-            "ratio": 3.66,
-            "percentile": 0.784
+            "user_monthly": 63.4,
+            "cohort_median": 27.34,
+            "ratio": 2.32,
+            "percentile": 0.716
           },
           {
             "category": "Groceries",
-            "user_monthly": 57.66,
-            "cohort_median": 16.3,
-            "ratio": 3.54,
-            "percentile": 0.785
+            "user_monthly": 33.3,
+            "cohort_median": 17.43,
+            "ratio": 1.91,
+            "percentile": 0.654
           },
           {
-            "category": "Travel",
-            "user_monthly": 39.67,
-            "cohort_median": 35.53,
-            "ratio": 1.12,
-            "percentile": 0.579
+            "category": "Dining & Takeaway",
+            "user_monthly": 28.73,
+            "cohort_median": 20.88,
+            "ratio": 1.38,
+            "percentile": 0.569
           },
           {
-            "category": "Health",
-            "user_monthly": 4.48,
-            "cohort_median": 5.95,
-            "ratio": 0.75,
-            "percentile": 0.34
+            "category": "Transport",
+            "user_monthly": 5.98,
+            "cohort_median": 10.86,
+            "ratio": 0.55,
+            "percentile": 0.372
+          },
+          {
+            "category": "Entertainment",
+            "user_monthly": 2.53,
+            "cohort_median": 7.43,
+            "ratio": 0.34,
+            "percentile": 0.27
+          },
+          {
+            "category": "Shopping",
+            "user_monthly": 7.19,
+            "cohort_median": 21.27,
+            "ratio": 0.34,
+            "percentile": 0.279
           }
         ],
-        "flagged": [
-          {
-            "category": "Entertainment",
-            "user_monthly": 267.1,
-            "cohort_median": 6.09,
-            "ratio": 43.87,
-            "percentile": 0.988
-          },
-          {
-            "category": "Digital & Subscriptions",
-            "user_monthly": 916.08,
-            "cohort_median": 27.31,
-            "ratio": 33.55,
-            "percentile": 1.0
-          },
-          {
-            "category": "Dining & Takeaway",
-            "user_monthly": 233.19,
-            "cohort_median": 25.47,
-            "ratio": 9.16,
-            "percentile": 0.97
-          },
-          {
-            "category": "Transport",
-            "user_monthly": 97.29,
-            "cohort_median": 15.29,
-            "ratio": 6.36,
-            "percentile": 0.928
-          },
-          {
-            "category": "Shopping",
-            "user_monthly": 126.21,
-            "cohort_median": 26.7,
-            "ratio": 4.73,
-            "percentile": 0.839
-          },
-          {
-            "category": "Bills & Utilities",
-            "user_monthly": 28.46,
-            "cohort_median": 7.78,
-            "ratio": 3.66,
-            "percentile": 0.784
-          },
-          {
-            "category": "Groceries",
-            "user_monthly": 57.66,
-            "cohort_median": 16.3,
-            "ratio": 3.54,
-            "percentile": 0.785
-          }
-        ]
+        "flagged": []
       },
       "actions": [],
-      "level": "alert",
-      "insight_id": "468cf62016449c7e"
+      "level": "info",
+      "insight_id": "4a1493a9dbdc6354"
     },
     "fx_fee_leakage": {
       "type": "fx_fee_leakage",
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
-      "title": "\u00a344.21 in fees \u00b7 ~\u00a389/yr",
-      "explanation": "You've paid \u00a344.21 in fees; \u00a30.13 of it on GBP transactions that shouldn't carry FX fees; 99% of your spend is in 38 foreign currencies.",
-      "severity": 0.6623,
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
+      "title": "\u00a30.76 in fees \u00b7 ~\u00a32/yr",
+      "explanation": "You've paid \u00a30.76 in fees; 99% of your spend is in 10 foreign currencies.",
+      "severity": 0.0299,
       "payload": {
-        "total_fees": 44.21,
-        "annual_projection": 88.66,
-        "n_fee_txns": 28,
-        "avg_fee": 1.58,
-        "avoidable_home_currency_fees": 0.13,
-        "foreign_spend_share": 0.9901,
-        "currency_count": 38,
+        "total_fees": 0.76,
+        "annual_projection": 1.64,
+        "n_fee_txns": 3,
+        "avg_fee": 0.25,
+        "avoidable_home_currency_fees": 0.0,
+        "foreign_spend_share": 0.9937,
+        "currency_count": 10,
         "monthly_fees": [
           {
             "month": "2025-07",
-            "fees": 5.62
+            "fees": 0.0
           },
           {
             "month": "2025-08",
-            "fees": 5.49
+            "fees": 0.0
           },
           {
             "month": "2025-09",
-            "fees": 4.49
+            "fees": 0.0
           },
           {
             "month": "2025-10",
-            "fees": 15.08
+            "fees": 0.13
           },
           {
             "month": "2025-11",
-            "fees": 6.54
+            "fees": 0.0
           },
           {
             "month": "2025-12",
-            "fees": 6.99
+            "fees": 0.63
           }
         ],
         "top_fees": [
           {
-            "merchant": "Frituur Rode",
-            "fee": 3.86,
-            "currency": "THB",
-            "date": "2025-10-17T10:05:37.300996"
+            "merchant": "Anne & Anne Amersfoort",
+            "fee": 0.5,
+            "currency": "ZAR",
+            "date": "2025-12-09T12:37:45.603640"
           },
           {
-            "merchant": "Piet & Piet Capelle",
-            "fee": 3.86,
-            "currency": "HUF",
-            "date": "2025-07-30T08:57:47.550609"
+            "merchant": "gracht.nl",
+            "fee": 0.13,
+            "currency": "CZK",
+            "date": "2025-10-14T07:10:21.509972"
           },
           {
-            "merchant": "Sofie & Sofie Voorburg",
-            "fee": 3.86,
-            "currency": "RON",
-            "date": "2025-12-31T04:23:07.137077"
-          },
-          {
-            "merchant": "Blauwe Brug",
-            "fee": 3.86,
-            "currency": "RON",
-            "date": "2025-08-26T07:45:46"
-          },
-          {
-            "merchant": "Frituur Rode",
-            "fee": 3.86,
-            "currency": "BGN",
-            "date": "2025-11-28T12:23:58.758843"
+            "merchant": "Broodjeszaak Eva",
+            "fee": 0.13,
+            "currency": "JOD",
+            "date": "2025-12-11T23:26:38.723414"
           }
         ]
       },
-      "actions": [
-        {
-          "action": "review_card_plan",
-          "reason": "avoidable_home_currency_fees",
-          "amount": 0.13
-        }
-      ],
-      "level": "warning",
-      "insight_id": "54d0606aa996018a"
+      "actions": [],
+      "level": "info",
+      "insight_id": "dadae9aad0f7ecf7"
     }
   },
   "charts": {
     "spending_history": {
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
       "category_order": [
         "Groceries",
         "Dining & Takeaway",
@@ -762,12 +552,7 @@
         "Transport",
         "Shopping",
         "Digital & Subscriptions",
-        "Bills & Utilities",
-        "Entertainment",
-        "Health",
-        "Travel",
-        "Cash & ATM",
-        "Fees & Charges"
+        "Entertainment"
       ],
       "history": {
         "months": [
@@ -780,124 +565,78 @@
         ],
         "series": {
           "Groceries": [
-            102.84,
-            39.81,
-            12.19,
-            122.79,
-            46.63,
-            21.67
+            6.84,
+            17.4,
+            2.46,
+            7.37,
+            156.28,
+            9.47
           ],
           "Dining & Takeaway": [
-            368.18,
-            427.89,
-            147.1,
-            124.95,
-            259.12,
-            71.92
+            28.6,
+            68.5,
+            11.36,
+            58.21,
+            0.0,
+            5.69
           ],
           "Transport": [
-            100.79,
-            63.83,
-            66.99,
-            115.95,
-            98.73,
-            137.42
+            23.53,
+            4.08,
+            0.0,
+            1.21,
+            0.0,
+            7.07
           ],
           "Shopping": [
-            31.66,
-            118.37,
-            43.57,
-            316.22,
-            222.25,
-            25.22
+            0.0,
+            0.0,
+            0.0,
+            43.13,
+            0.0,
+            0.0
           ],
           "Digital & Subscriptions": [
-            781.94,
-            753.27,
-            1007.97,
-            1052.58,
-            868.78,
-            1031.95
-          ],
-          "Bills & Utilities": [
-            38.76,
-            54.46,
-            0.0,
-            39.99,
-            0.0,
-            37.56
+            56.87,
+            106.47,
+            33.79,
+            70.51,
+            25.78,
+            86.98
           ],
           "Entertainment": [
-            453.65,
-            288.09,
-            310.71,
-            149.8,
-            300.93,
-            99.42
-          ],
-          "Health": [
             0.0,
             0.0,
-            26.85,
+            15.2,
             0.0,
             0.0,
             0.0
-          ],
-          "Travel": [
-            113.79,
-            0.0,
-            49.34,
-            74.87,
-            0.0,
-            0.0
-          ],
-          "Cash & ATM": [
-            72.19,
-            111.61,
-            90.39,
-            190.78,
-            0.0,
-            40.24
-          ],
-          "Fees & Charges": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.41
           ]
         },
         "totals": [
-          2063.8,
-          1857.33,
-          1755.11,
-          2187.93,
-          1796.44,
-          1465.81
+          115.84,
+          196.45,
+          62.81,
+          180.43,
+          182.06,
+          109.21
         ]
       },
       "forecast": {
         "month": "2026-01",
         "by_category": {
-          "Groceries": 46.94,
-          "Dining & Takeaway": 92.11,
-          "Transport": 124.17,
-          "Shopping": 184.66,
-          "Digital & Subscriptions": 1032.32,
-          "Bills & Utilities": 20.69,
-          "Entertainment": 130.56,
-          "Health": 0.9,
-          "Travel": 5.14,
-          "Cash & ATM": 60.89,
-          "Fees & Charges": 0.2
+          "Groceries": 67.24,
+          "Dining & Takeaway": 11.35,
+          "Shopping": 12.94,
+          "Digital & Subscriptions": 59.5,
+          "Entertainment": 0.51
         },
-        "total": 1698.58,
+        "total": 151.54,
         "is_forecast": true
       }
     },
     "category_momentum": {
-      "user_id": "a93908ed-739b-43e3-ba5a-94f75271028a",
+      "user_id": "01a98e52-b964-4b0e-a25f-74ccfc49232c",
       "window": [
         "2025-07",
         "2025-08",
@@ -908,119 +647,87 @@
       ],
       "categories": [
         {
-          "category": "Shopping",
-          "last_month": 25.22,
-          "prev_month": 222.25,
-          "mom_pct_change": -88.7,
-          "trend_pct_per_month": 12.5,
-          "direction": "down",
+          "category": "Digital & Subscriptions",
+          "last_month": 86.98,
+          "prev_month": 25.78,
+          "mom_pct_change": 237.4,
+          "trend_pct_per_month": -2.5,
+          "direction": "up",
           "monthly": [
-            31.66,
-            118.37,
-            43.57,
-            316.22,
-            222.25,
-            25.22
-          ]
-        },
-        {
-          "category": "Dining & Takeaway",
-          "last_month": 71.92,
-          "prev_month": 259.12,
-          "mom_pct_change": -72.2,
-          "trend_pct_per_month": -24.6,
-          "direction": "down",
-          "monthly": [
-            368.18,
-            427.89,
-            147.1,
-            124.95,
-            259.12,
-            71.92
-          ]
-        },
-        {
-          "category": "Entertainment",
-          "last_month": 99.42,
-          "prev_month": 300.93,
-          "mom_pct_change": -67.0,
-          "trend_pct_per_month": -20.3,
-          "direction": "down",
-          "monthly": [
-            453.65,
-            288.09,
-            310.71,
-            149.8,
-            300.93,
-            99.42
+            56.87,
+            106.47,
+            33.79,
+            70.51,
+            25.78,
+            86.98
           ]
         },
         {
           "category": "Groceries",
-          "last_month": 21.67,
-          "prev_month": 46.63,
-          "mom_pct_change": -53.5,
-          "trend_pct_per_month": -13.6,
+          "last_month": 9.47,
+          "prev_month": 156.28,
+          "mom_pct_change": -93.9,
+          "trend_pct_per_month": 37.3,
           "direction": "down",
           "monthly": [
-            102.84,
-            39.81,
-            12.19,
-            122.79,
-            46.63,
-            21.67
+            6.84,
+            17.4,
+            2.46,
+            7.37,
+            156.28,
+            9.47
+          ]
+        },
+        {
+          "category": "Dining & Takeaway",
+          "last_month": 5.69,
+          "prev_month": 0.0,
+          "mom_pct_change": null,
+          "trend_pct_per_month": -27.2,
+          "direction": "new",
+          "monthly": [
+            28.6,
+            68.5,
+            11.36,
+            58.21,
+            0.0,
+            5.69
           ]
         },
         {
           "category": "Transport",
-          "last_month": 137.42,
-          "prev_month": 98.73,
-          "mom_pct_change": 39.2,
-          "trend_pct_per_month": 9.9,
-          "direction": "up",
-          "monthly": [
-            100.79,
-            63.83,
-            66.99,
-            115.95,
-            98.73,
-            137.42
-          ]
-        },
-        {
-          "category": "Digital & Subscriptions",
-          "last_month": 1031.95,
-          "prev_month": 868.78,
-          "mom_pct_change": 18.8,
-          "trend_pct_per_month": 5.1,
-          "direction": "up",
-          "monthly": [
-            781.94,
-            753.27,
-            1007.97,
-            1052.58,
-            868.78,
-            1031.95
-          ]
-        },
-        {
-          "category": "Bills & Utilities",
-          "last_month": 37.56,
+          "last_month": 7.07,
           "prev_month": 0.0,
           "mom_pct_change": null,
-          "trend_pct_per_month": -13.0,
+          "trend_pct_per_month": -44.6,
           "direction": "new",
           "monthly": [
-            38.76,
-            54.46,
+            23.53,
+            4.08,
             0.0,
-            39.99,
+            1.21,
             0.0,
-            37.56
+            7.07
           ]
         },
         {
-          "category": "Health",
+          "category": "Shopping",
+          "last_month": 0.0,
+          "prev_month": 0.0,
+          "mom_pct_change": null,
+          "trend_pct_per_month": 17.1,
+          "direction": "flat",
+          "monthly": [
+            0.0,
+            0.0,
+            0.0,
+            43.13,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "category": "Entertainment",
           "last_month": 0.0,
           "prev_month": 0.0,
           "mom_pct_change": null,
@@ -1029,58 +736,10 @@
           "monthly": [
             0.0,
             0.0,
-            26.85,
+            15.2,
             0.0,
             0.0,
             0.0
-          ]
-        },
-        {
-          "category": "Travel",
-          "last_month": 0.0,
-          "prev_month": 0.0,
-          "mom_pct_change": null,
-          "trend_pct_per_month": -39.1,
-          "direction": "flat",
-          "monthly": [
-            113.79,
-            0.0,
-            49.34,
-            74.87,
-            0.0,
-            0.0
-          ]
-        },
-        {
-          "category": "Cash & ATM",
-          "last_month": 40.24,
-          "prev_month": 0.0,
-          "mom_pct_change": null,
-          "trend_pct_per_month": -13.4,
-          "direction": "new",
-          "monthly": [
-            72.19,
-            111.61,
-            90.39,
-            190.78,
-            0.0,
-            40.24
-          ]
-        },
-        {
-          "category": "Fees & Charges",
-          "last_month": 0.41,
-          "prev_month": 0.0,
-          "mom_pct_change": null,
-          "trend_pct_per_month": 85.7,
-          "direction": "new",
-          "monthly": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.41
           ]
         }
       ]

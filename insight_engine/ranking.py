@@ -10,11 +10,16 @@ from __future__ import annotations
 from .contract import Insight
 
 # A light prior so that, at equal severity, the more actionable insight wins.
+# Preventive insights grounded in real signal (decline shield, overspend) lead;
+# the cashflow/fx/peer tiles are supporting context (the data behind them is
+# weak on this synthetic set — see DESIGN.md §5.3 / §11).
 _TYPE_PRIOR = {
+    "decline_shield": 1.25,
+    "overspend_alert": 1.15,
     "subscription_radar": 1.05,
-    "fx_fee_leakage": 1.0,
-    "cashflow_forecast": 1.1,
-    "peer_benchmarking": 0.9,
+    "cashflow_forecast": 0.9,
+    "peer_benchmarking": 0.85,
+    "fx_fee_leakage": 0.8,
 }
 
 

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 11mm 12mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: 'DM Sans', sans-serif; color: #16161d; background: #fff;
+    font-size: 8.6px; line-height: 1.42; width: 186mm;
+  }
+  .mono { font-family: 'DM Mono', monospace; }
+  .ink { color: #3730a3; }
+  .ink-bg { background: #eef0ff; }
+  h1 { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #3730a3; margin-bottom: 4px; }
+  b { font-weight: 600; color: #000; }
+
+  /* Header */
+  header { display: flex; justify-content: space-between; align-items: flex-end;
+           border-bottom: 2px solid #3730a3; padding-bottom: 7px; margin-bottom: 8px; }
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .dot { width: 26px; height: 26px; border-radius: 50%; background: #1a1a80; color: #a5b4fc;
+         display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .tagline { font-size: 9px; color: #555; margin-top: 1px; }
+  .meta { text-align: right; font-size: 8px; color: #777; }
+  .meta b { color: #3730a3; }
+
+  /* Problem strip */
+  .problem { background: #fbf3e6; border: 0.6px solid #e7d4ad; border-radius: 6px;
+             padding: 6px 9px; margin-bottom: 8px; font-size: 8.8px; }
+  .problem b { color: #92500a; }
+
+  /* 3-column engines */
+  .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .col { border: 0.6px solid #e2e2ec; border-radius: 7px; padding: 8px 9px; background: #fcfcff; }
+  .col .num { font-family: 'DM Mono', monospace; color: #3730a3; font-size: 8px; }
+  .step { margin: 3px 0; padding-left: 11px; position: relative; }
+  .step::before { content: '▸'; position: absolute; left: 0; color: #9a9ad6; font-size: 7px; top: 1px; }
+  .hero { background: #fdecec; border: 0.6px solid #f3bcbc; border-radius: 5px; padding: 5px 7px; margin: 5px 0; }
+  .hero .h { font-weight: 700; color: #b91c1c; font-size: 8.6px; }
+  .hero .q { color: #444; font-style: italic; font-size: 8.2px; margin-top: 1px; }
+  .warn { background: #fef7e7; border: 0.6px solid #f0dcab; border-radius: 5px; padding: 4px 7px; margin: 4px 0; }
+  .warn .h { font-weight: 700; color: #a16207; font-size: 8.4px; }
+
+  /* two-up lower section */
+  .two { display: grid; grid-template-columns: 1.25fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .panel { border: 0.6px solid #e2e2ec; border-radius: 7px; padding: 8px 9px; }
+  .panel.dark { background: #14133a; color: #d8d8f0; border: none; }
+  .panel.dark h2 { color: #a5b4fc; }
+  .panel.dark b { color: #fff; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 1.5px 0; vertical-align: top; }
+  td.k { color: #555; }
+  td.v { text-align: right; font-family: 'DM Mono', monospace; font-weight: 500; color: #16161d; }
+  .panel.dark td.k { color: #b8b8e0; } .panel.dark td.v { color: #fff; }
+
+  /* metrics strip */
+  .metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-bottom: 7px; }
+  .metric { background: #eef0ff; border-radius: 6px; padding: 6px 8px; text-align: center; }
+  .metric .big { font-size: 15px; font-weight: 700; color: #3730a3; font-family: 'DM Mono', monospace; }
+  .metric .cap { font-size: 7.2px; color: #555; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 1px; }
+
+  footer { border-top: 0.6px solid #ddd; padding-top: 5px; font-size: 7.4px; color: #888;
+           display: flex; justify-content: space-between; }
+  .pipe { font-family: 'DM Mono', monospace; font-size: 7.6px; color: #3730a3; background:#eef0ff;
+          border-radius: 5px; padding: 4px 7px; margin-bottom: 8px; text-align:center; letter-spacing:0.02em; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="dot">IQ</div>
+    <div>
+      <h1>Spending IQ</h1>
+      <div class="tagline">From transaction data to financial intelligence — categorise, surface, act.</div>
+    </div>
+  </div>
+  <div class="meta">
+    <div><b>Revolut AI Challenge</b> · HackDelft 2026</div>
+    <div>Executive Summary · 1M txns · ~17.8k users · Jul–Dec 2025</div>
+  </div>
+</header>
+
+<div class="problem">
+  <b>The problem.</b> Revolut's shipped <span class="mono">category</span> column is a 1:1 copy of the raw MCC code —
+  <b>396 granular labels</b> (“Record Shops”, “Drinking Places”) nobody budgets by — and MCC is <b>missing on 3.3%</b> of
+  rows and often stale in production. Unusable categories → useless budgets → users who don't understand their money.
+</div>
+
+<div class="pipe">cleaned txns &nbsp;→&nbsp; <b>① CATEGORISATION ENGINE</b> &nbsp;(+category, +merchant_id, +is_recurring)&nbsp; →&nbsp; <b>② INSIGHT ENGINE</b> &nbsp;(ranked insight objects)&nbsp; →&nbsp; <b>③ FINANCIAL AGENT</b> &nbsp;— one data contract, three swappable engines</div>
+
+<div class="cols">
+  <!-- 1 -->
+  <div class="col">
+    <h2>① Categorisation</h2>
+    <div style="margin-bottom:4px;color:#444;">A cheapest-confident-tier-first cascade onto a clean <b>12-category</b> budgeting taxonomy, designed to work <b>even when MCC is absent</b>.</div>
+    <div class="step"><b>Type rules</b> — FEE/ATM/credits (the 3.3% no-MCC rows)</div>
+    <div class="step"><b>MCC embedding</b> — description → nearest taxonomy anchor (cosine); the ~88% backbone</div>
+    <div class="step"><b>Name keywords</b> — Dutch head-words (Supermarkt, Tankstation) fill &amp; cross-check</div>
+    <div class="step"><b>LLM tier (Claude)</b> — only the uncertain ~3%, batched &amp; cached</div>
+    <div style="margin-top:4px;color:#444;"><b>Personalised:</b> user-history features mean the <i>same</i> merchant lands in the category that fits <i>that</i> user (Albert Heijn £80 weekly = Groceries; £3 = a snack). Corrections feed back — the system learns your meaning.</div>
+  </div>
+  <!-- 2 -->
+  <div class="col">
+    <h2>② Insight Engine</h2>
+    <div style="margin-bottom:3px;color:#444;">Pluggable detectors → severity ranking + dedup → the <b>one</b> insight that matters (no spam). Every number is computed, never modelled.</div>
+    <div class="hero">
+      <div class="h">★ Decline Shield — preventive</div>
+      <div class="q">“8 declines for insufficient balance, and Eetcafe Blauwe £16.55 is due in 3 days — top up.”</div>
+    </div>
+    <div class="hero">
+      <div class="h">★ Overspend Alert — personal baseline</div>
+      <div class="q">“48% over your usual Digital this month” — vs <i>your</i> median, not a population average.</div>
+    </div>
+    <div style="color:#444;">Supporting tiles: subscription radar, upcoming-charges forecast, peer benchmarking, fees. Detectors whose signal is weak in the data are <b>cut or capped, not faked</b>.</div>
+  </div>
+  <!-- 3 -->
+  <div class="col">
+    <h2>③ User Interaction</h2>
+    <div style="margin-bottom:4px;color:#444;">The ranked hero becomes <b>one push</b>; the tap opens a Claude tool-calling agent.</div>
+    <div class="step"><b>Push</b> — “You could get declined again — tap to fix.”</div>
+    <div class="step"><b>Explain</b> — agent answers with computed figures (decline history, next charge)</div>
+    <div class="step"><b>Plan</b> — finds the stretched category &amp; the renewing sub</div>
+    <div class="step"><b>Act</b> — one-tap <span class="mono">set_budget</span> / <span class="mono">cancel_subscription</span>, gated by confirmation (simulated)</div>
+    <div style="margin-top:4px;color:#444;">Model: <span class="mono">claude-opus-4-8</span>, adaptive thinking. The agent <b>plans &amp; explains; it never invents a number</b> — every figure comes from a tool over the enriched table.</div>
+  </div>
+</div>
+
+<div class="two">
+  <div class="panel">
+    <h2>Methodology — using synthetic data honestly</h2>
+    <div style="color:#444;">The merchants are fictional, so <b>MCC <i>is</i> the ground truth</b> — we never claim to “beat” or “fix” it. We prove three real, verifiable things instead:</div>
+    <div class="step" style="margin-top:3px;"><b>Normalisation</b> — collapse 396 unusable MCC labels into 12 budget-ready categories (the actual product value).</div>
+    <div class="step"><b>MCC-independent capability</b> — train on a time-ordered split (train Jul–Oct, test Nov–Dec) and predict the category on <b>held-out merchants with MCC withheld</b>: <b>47% accuracy vs a 25% majority baseline</b> — exactly the production case where MCC is missing.</div>
+    <div class="step"><b>Label-free checks</b> — coverage (we categorise the no-MCC rows), consistency, and personalisation lift.</div>
+    <div style="margin-top:4px;color:#444;"><b>Why these heroes:</b> we validated every candidate on the full 1M rows and built only what's real. Decline Shield rides the <b>strongest signal in the data</b>; FX/fees &amp; income forecasting were <b>cut</b> — effectively absent (≈£363 total FX markup; 4 users with recurring income).</div>
+  </div>
+  <div class="panel dark">
+    <h2>Signal in the data</h2>
+    <table>
+      <tr><td class="k">Users hitting an insufficient-balance decline</td><td class="v">77%</td></tr>
+      <tr><td class="k">Declined transactions (75% insuff. balance)</td><td class="v">19.2%</td></tr>
+      <tr><td class="k">Spend in user's top-3 merchants (median)</td><td class="v">67%</td></tr>
+      <tr><td class="k">Cap-test accuracy, MCC withheld (vs 25%)</td><td class="v">47%</td></tr>
+      <tr><td class="k">Raw MCC labels → clean categories</td><td class="v">396 → 12</td></tr>
+    </table>
+    <div style="margin-top:6px;font-size:7.8px;color:#b8b8e0;line-height:1.4;">
+      Decline Shield turns the dataset's most universal pain into a <b>preventive</b> nudge — the difference between
+      “here's where your money went” and “we stopped a problem before it happened.”
+    </div>
+  </div>
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="big">~97%</div><div class="cap">volume via rules+embedding, ~0 marginal cost</div></div>
+  <div class="metric"><div class="big">~3%</div><div class="cap">uncertain tail to LLM — batched &amp; cached</div></div>
+  <div class="metric"><div class="big">1 push</div><div class="cap">ranked hero, not notification spam</div></div>
+  <div class="metric"><div class="big">0</div><div class="cap">hallucinated numbers — all computed</div></div>
+</div>
+
+<footer>
+  <span><b>Impact:</b> clean personal categories → trustworthy budgets → engagement; cutting insufficient-balance declines attacks failed-payment churn directly — a concrete Revolut win.</span>
+  <span class="mono">Spending IQ · categorise → surface → act</span>
+</footer>
+
+</body>
+</html>

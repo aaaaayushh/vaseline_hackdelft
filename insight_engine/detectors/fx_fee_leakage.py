@@ -69,10 +69,12 @@ class FxFeeLeakage(InsightDetector):
         } for r in top.itertuples()]
 
         # Severity: annual fees relative to spend, with a bump for avoidable
-        # home-currency fees.
+        # home-currency fees. Capped at 0.5 (NOTICE/WARNING) — FX/fees are
+        # effectively absent in this synthetic data (DESIGN.md §5.3/§11: ~£363
+        # total markup across all users), so this is context, never the hero.
         fee_rate = (total_fees / total_spend) if total_spend else 0.0
-        sev = min(1.0, fee_rate * 15 + (0.3 if home_fees > 0 else 0.0)
-                  + min(0.3, annual_fees / 100.0))
+        sev = min(0.5, fee_rate * 15 + (0.2 if home_fees > 0 else 0.0)
+                  + min(0.2, annual_fees / 100.0))
 
         title = f"£{total_fees:.2f} in fees · ~£{annual_fees:.0f}/yr"
         bits = [f"You've paid £{total_fees:.2f} in fees"]

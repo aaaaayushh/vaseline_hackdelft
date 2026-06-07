@@ -13,13 +13,32 @@ insight_engine/
 ├─ ranking.py         # severity ranking + dedup → non-spammy feed
 ├─ analytics.py       # SpendingAnalytics: deterministic chart queries (stats)
 ├─ engine.py          # InsightEngine: fit context once, build dashboard per user
+├─ agent.py           # Financial Agent: Claude tool-calling chat over the engine
 ├─ api.py             # FastAPI stub the RN app calls
 ├─ run_demo.py        # CLI smoke test / demo
 └─ detectors/
+   ├─ decline_shield.py       # ★ predict & prevent the next insufficient-balance decline
+   ├─ overspend_alert.py      # ★ personal per-category baseline + month-to-date projection
    ├─ subscription_radar.py   # new / forgotten / price-hiked recurring charges
-   ├─ fx_fee_leakage.py       # fees + foreign-currency exposure (Revolut angle)
-   ├─ cashflow_forecast.py    # upcoming charges + projected 30-day net flow
-   └─ peer_benchmarking.py    # spend vs demographic cohort
+   ├─ cashflow_forecast.py    # upcoming known charges (context tile)
+   ├─ peer_benchmarking.py    # spend vs demographic cohort (guarded against tiny-cohort artifacts)
+   └─ fx_fee_leakage.py       # fees + foreign-currency exposure (capped — ~absent in data)
+```
+
+★ = the two preventive heroes, grounded in the strongest *real* signals in the
+data (77% of users hit an insufficient-balance decline; personal overspend is
+the brief-named insight). The other three are supporting context tiles —
+ranking (`ranking.py`) puts the heroes first.
+
+## Financial Agent (chat layer)
+A Claude (`claude-opus-4-8`) tool-calling agent over the engine. It explains
+insights and takes simulated actions; every number comes from a tool, never the
+model. Read-only tools auto-run; `set_budget` / `cancel_subscription` are gated
+behind a confirmation. Runs with `ANTHROPIC_API_KEY` set; degrades cleanly
+without it (the detectors/dashboard are unaffected).
+```bash
+uv pip install anthropic && export ANTHROPIC_API_KEY=...
+uv run python -m insight_engine.agent --user <owner_id>
 ```
 
 ## Quick start

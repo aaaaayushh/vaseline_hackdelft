@@ -34,6 +34,40 @@ CATEGORIES = [
     ENTERTAINMENT, HEALTH, TRAVEL, CASH, FEES, INCOME,
 ]
 
+# Categories that represent recurring digital/subscription spend. Referenced by
+# the Subscription Radar so it doesn't hard-code a single label string.
+SUBSCRIPTION_CATEGORIES = {DIGITAL}
+
+# --------------------------------------------------------------------------- #
+# Canonical taxonomy reconciliation.
+#
+# The Categorization Engine (``engine_cat``) ships a richer ~16-category Plaid
+# (PFC) taxonomy: it splits Dining vs Bars, Entertainment vs Digital, breaks out
+# Personal Care / Gambling / Services, and uses "Restaurants & Takeaway" rather
+# than "Dining & Takeaway". The Insight Engine's *canonical* contract is the
+# 12-category budgeting taxonomy above (DESIGN.md §4.1). This map collapses any
+# 16-category label onto the canonical 12 so either engine's output flows
+# through one contract. ``load_enriched`` applies it; unknown labels pass
+# through unchanged.
+# --------------------------------------------------------------------------- #
+CANONICAL_ALIASES = {
+    "Restaurants & Takeaway": DINING,
+    "Entertainment & Digital": DIGITAL,   # collapse onto the budgeting concept
+    "Personal Care": SHOPPING,
+    "Health & Pharmacy": HEALTH,
+    "Gambling": ENTERTAINMENT,
+    "Services": BILLS,
+    "Income": INCOME,
+    "Refunds & Reversals": INCOME,
+    "Other": SHOPPING,
+}
+
+
+def normalize_category(series: "pd.Series") -> "pd.Series":
+    """Map any (possibly 16-category) label onto the canonical 12. Labels that
+    are already canonical — or unknown — pass through unchanged."""
+    return series.map(lambda c: CANONICAL_ALIASES.get(c, c))
+
 # Type -> category (Layer-0 structural rules; bypasses MCC).
 _TYPE_MAP = {
     "ATM": CASH,

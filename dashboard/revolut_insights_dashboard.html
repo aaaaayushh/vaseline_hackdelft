@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Revolut Insights Dashboard</title>
+  <title>Spending IQ — Insights</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -32,7 +32,10 @@
       --blue-bg: #080f1a;
       --blue-border: rgba(96,165,250,0.25);
       --green: #4ade80;
+      --green-bg: #08160c;
+      --green-border: rgba(74,222,128,0.25);
       --purple: #c084fc;
+      --indigo: #6366f1;
       --radius: 14px;
       --radius-sm: 8px;
       --radius-xs: 5px;
@@ -51,207 +54,141 @@
     }
 
     /* ---- Top bar ---- */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .topbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; }
     .brand-dot {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      background: #1a1a80;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #1a1a80; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .brand-dot i { font-size: 14px; color: #a5b4fc; }
     .brand-name { font-size: 14px; font-weight: 600; color: var(--text); }
     .brand-date { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
 
+    /* ---- Lock-screen push notification (the user-interaction surface) ---- */
+    .push {
+      display: flex; gap: 11px; align-items: flex-start;
+      background: linear-gradient(180deg,#15110a,#120d07);
+      border: 0.5px solid var(--amber-border);
+      border-radius: var(--radius); padding: 13px 15px; margin-bottom: 20px;
+      box-shadow: 0 0 0 1px rgba(245,158,11,0.05), 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .push-icon {
+      width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+      background: var(--amber-bg); border: 0.5px solid var(--amber-border);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .push-icon i { color: var(--amber); font-size: 15px; }
+    .push-body { flex: 1; min-width: 0; }
+    .push-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+    .push-app { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+    .push-time { font-size: 10px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+    .push-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .push-text { font-size: 12px; color: #bbb; line-height: 1.4; }
+
     /* ---- Cards ---- */
     .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 0.5px solid var(--border);
-      overflow: hidden;
-      margin-bottom: 10px;
-      transition: border-color 0.15s;
+      background: var(--surface); border-radius: var(--radius);
+      border: 0.5px solid var(--border); overflow: hidden;
+      margin-bottom: 10px; transition: border-color 0.15s;
     }
     .card:hover { border-color: var(--border-strong); }
     .card-alert  { border-left: 2px solid var(--red);   border-radius: 0 var(--radius) var(--radius) 0; }
-    .card-warning{ border-left: 2px solid var(--amber);  border-radius: 0 var(--radius) var(--radius) 0; }
-    .card-info   { border-left: 2px solid var(--blue);   border-radius: 0 var(--radius) var(--radius) 0; }
+    .card-warning{ border-left: 2px solid var(--amber); border-radius: 0 var(--radius) var(--radius) 0; }
+    .card-info   { border-left: 2px solid var(--blue);  border-radius: 0 var(--radius) var(--radius) 0; }
     .card-neutral{ border-left: 2px solid #2a2a2a;      border-radius: 0 var(--radius) var(--radius) 0; }
 
-    /* ---- Card header (clickable) ---- */
+    /* hero gets a soft glow */
+    .card-hero {
+      border-left: 2px solid var(--red);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      box-shadow: 0 0 0 1px rgba(239,68,68,0.06), 0 10px 40px rgba(239,68,68,0.06);
+    }
+
     .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 18px;
-      cursor: pointer;
-      user-select: none;
-      gap: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 15px 18px; cursor: pointer; user-select: none; gap: 12px;
     }
     .card-header:hover { background: var(--surface2); }
     .header-left { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
     .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    .label {
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      font-weight: 500;
-    }
+    .label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
     .mini-val { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-val.big { font-size: 16px; font-weight: 600; }
     .mini-sub { font-size: 10px; color: var(--text-muted); }
 
-    .chevron {
-      font-size: 15px;
-      color: var(--text-dim);
-      transition: transform 0.22s ease;
-      flex-shrink: 0;
-    }
+    .chevron { font-size: 15px; color: var(--text-dim); transition: transform 0.22s ease; flex-shrink: 0; }
     .chevron.open { transform: rotate(180deg); }
 
-    /* ---- Card body ---- */
     .card-body { padding: 0 18px 16px; }
     .card-body.collapsed { display: none; }
 
-    /* ---- Pills ---- */
-    .pill {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 10px; padding: 2px 8px;
-      border-radius: 20px; font-weight: 500; white-space: nowrap;
-    }
-    .pill-red    { background: var(--red-bg);   color: var(--red);   border: 0.5px solid var(--red-border); }
-    .pill-amber  { background: var(--amber-bg); color: var(--amber); border: 0.5px solid var(--amber-border); }
-    .pill-blue   { background: var(--blue-bg);  color: var(--blue);  border: 0.5px solid var(--blue-border); }
-    .pill-tag    { background: var(--surface3); color: #a5b4fc;     border: 0.5px solid rgba(99,102,241,0.3); font-size: 9px; padding: 1px 5px; }
+    .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+    .pill-red   { background: var(--red-bg);   color: var(--red);   border: 0.5px solid var(--red-border); }
+    .pill-amber { background: var(--amber-bg); color: var(--amber); border: 0.5px solid var(--amber-border); }
+    .pill-blue  { background: var(--blue-bg);  color: var(--blue);  border: 0.5px solid var(--blue-border); }
+    .pill-green { background: var(--green-bg); color: var(--green); border: 0.5px solid var(--green-border); }
+    .pill-tag   { background: var(--surface3); color: #a5b4fc; border: 0.5px solid rgba(99,102,241,0.3); font-size: 9px; padding: 1px 5px; }
 
-    /* ---- Stat boxes ---- */
+    .lead { font-size: 13px; color: #ccc; line-height: 1.5; margin: 2px 0 14px; }
+    .lead b { color: var(--text); font-weight: 600; }
+    .lead .hot { color: var(--red); font-weight: 600; }
+
     .stat-grid-2 { display: grid; grid-template-columns: 1fr 1fr;     gap: 8px; margin-bottom: 14px; }
     .stat-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-    .stat-box {
-      background: var(--surface2);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      border: 0.5px solid var(--border);
-    }
+    .stat-box { background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 12px; border: 0.5px solid var(--border); }
     .stat-val { font-size: 16px; font-weight: 600; color: var(--text); margin-top: 3px; }
 
-    /* ---- Rows ---- */
-    .row {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 6px 0;
-    }
+    .row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; }
     .row + .row { border-top: 0.5px solid var(--surface3); }
     .row-name { font-size: 12px; color: #ccc; }
     .row-sub  { font-size: 10px; color: var(--text-muted); margin-top: 2px; display: flex; gap: 5px; align-items: center; }
     .row-amt  { font-size: 12px; color: var(--text); font-weight: 500; }
 
-    /* ---- Bar tracks ---- */
     .bar-track { background: var(--surface3); border-radius: 3px; height: 5px; width: 100%; margin: 2px 0; }
     .bar-red   { background: var(--red);   border-radius: 3px; height: 5px; }
     .bar-amber { background: var(--amber); border-radius: 3px; height: 5px; opacity: 0.65; }
+    .bar-blue  { background: var(--blue);  border-radius: 3px; height: 5px; }
 
-    /* ---- Tags ---- */
-    .tag { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
-    .tag-hike     { background: #1a0808; color: var(--red); }
-    .tag-forgotten{ background: #12082a; color: var(--purple); }
-    .tag-active   { background: #081a0a; color: var(--green); }
-
-    /* ---- CTA buttons ---- */
-    .cta {
-      width: 100%; margin-top: 12px;
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-      padding: 9px 14px; border-radius: var(--radius-sm);
-      font-size: 12px; font-weight: 500; cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      transition: opacity 0.15s;
-      border: none;
-    }
+    .cta { width: 100%; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; border: none; }
     .cta:hover { opacity: 0.85; }
     .cta-red   { background: var(--red-bg);   color: var(--red);   border: 0.5px solid var(--red-border); }
     .cta-amber { background: var(--amber-bg); color: var(--amber); border: 0.5px solid var(--amber-border); }
+    .cta-indigo{ background: #14133a; color: #a5b4fc; border: 0.5px solid rgba(99,102,241,0.4); }
+    .cta-row { display: flex; gap: 8px; }
+    .cta-row .cta { margin-top: 8px; }
 
-    /* ---- Expand detail block ---- */
-    .detail-block {
-      background: var(--surface2);
-      border-radius: var(--radius-sm);
-      padding: 10px 13px;
-      margin-top: 12px;
-      border: 0.5px solid var(--border);
-    }
-
-    /* ---- Divider ---- */
+    .detail-block { background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 13px; margin-top: 12px; border: 0.5px solid var(--border); }
     .divider { height: 0.5px; background: var(--surface3); margin: 12px 0; }
 
-    /* ---- Cashflow flow bar ---- */
-    .flow-bar-wrap {
-      background: var(--surface2);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 14px;
-    }
-    .flow-labels { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .flow-track  { position: relative; height: 8px; background: var(--surface3); border-radius: 4px; }
-    .flow-fill   { position: absolute; right: 0; height: 8px; background: var(--red); border-radius: 4px; opacity: 0.85; }
-    .flow-meta   { display: flex; justify-content: space-between; margin-top: 5px; }
+    /* ---- Agent chat ---- */
+    .agent-card { background: linear-gradient(180deg,#0d0d18,#0b0b12); border: 0.5px solid rgba(99,102,241,0.22); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; }
+    .agent-head { display: flex; align-items: center; gap: 9px; padding: 13px 16px; border-bottom: 0.5px solid var(--border); }
+    .agent-avatar { width: 26px; height: 26px; border-radius: 50%; background: #1a1a80; display:flex;align-items:center;justify-content:center; }
+    .agent-avatar i { font-size: 13px; color: #a5b4fc; }
+    .agent-name { font-size: 13px; font-weight: 600; }
+    .agent-tag { font-size: 9px; color: var(--text-dim); }
+    .chat { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .bubble { max-width: 86%; padding: 9px 12px; border-radius: 13px; font-size: 12.5px; line-height: 1.45; }
+    .bubble-user { align-self: flex-end; background: #1d2547; color: #dbe2ff; border-bottom-right-radius: 4px; }
+    .bubble-iq   { align-self: flex-start; background: var(--surface2); color: #ddd; border: 0.5px solid var(--border); border-bottom-left-radius: 4px; }
+    .bubble-iq b { color: #fff; }
+    .bubble-iq .num { color: #a5b4fc; font-weight: 600; font-family: 'DM Mono', monospace; }
+    .tool-chip { display:inline-flex; align-items:center; gap:4px; font-size: 9px; color: var(--text-dim); font-family:'DM Mono',monospace; margin-top: 5px; }
+    .tool-chip i { font-size: 10px; }
+    .action-row { align-self: flex-start; display: flex; gap: 7px; flex-wrap: wrap; }
+    .action-btn { font-size: 11px; padding: 7px 11px; border-radius: 8px; background: #14133a; color: #a5b4fc; border: 0.5px solid rgba(99,102,241,0.4); cursor: pointer; }
+    .confirmed { align-self: flex-start; display:flex; align-items:center; gap:6px; font-size: 11px; color: var(--green); background: var(--green-bg); border: 0.5px solid var(--green-border); border-radius: 8px; padding: 7px 11px; }
 
-    /* ---- FX sparkline ---- */
+    /* ---- Flow + spark ---- */
+    .chart-legend { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+    .chart-legend span { display: flex; align-items: center; gap: 3px; font-size: 9px; color: var(--text-muted); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
     .fx-spark { display: flex; align-items: flex-end; gap: 3px; height: 46px; margin-bottom: 3px; }
     .fx-months { display: flex; gap: 3px; }
-    .fx-months span { flex: 1; text-align: center; font-size: 9px; color: var(--text-dim); }
-
-    /* ---- Mom rows ---- */
-    .mom-row {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 5px 0;
-      border-bottom: 0.5px solid var(--surface3);
-    }
+    .mom-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 0.5px solid var(--surface3); }
     .mom-row:last-child { border-bottom: none; }
 
-    /* ---- Chart legend ---- */
-    .chart-legend { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
-    .chart-legend span {
-      display: flex; align-items: center; gap: 3px;
-      font-size: 9px; color: var(--text-muted);
-    }
-    .legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-
-    /* ---- Monthly totals mini chart ---- */
-    .totals-wrap { display: flex; gap: 0; height: 60px; align-items: flex-end; margin-top: 10px; }
-    .total-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; justify-content: flex-end; }
-    .total-bar { width: 100%; border-radius: 2px 2px 0 0; }
-    .total-lbl { font-size: 8px; color: var(--text-dim); }
-    .total-amt { font-size: 8px; color: var(--text-muted); }
-
-    /* ---- Sub rows ---- */
-    .sub-row {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 7px 0;
-      border-bottom: 0.5px solid var(--surface3);
-    }
-    .sub-row:last-child { border-bottom: none; }
-
-    /* ---- Currency tag ---- */
-    .currency-tag {
-      font-size: 9px; background: var(--surface3);
-      color: #888; border: 0.5px solid var(--border-strong);
-      border-radius: 3px; padding: 1px 4px;
-    }
-
-    /* ---- Scrollbar ---- */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
@@ -263,230 +200,261 @@
 <div class="topbar">
   <div class="topbar-brand">
     <div class="brand-dot"><i class="ti ti-bolt"></i></div>
-    <span class="brand-name">Insights</span>
+    <div>
+      <div class="brand-name">Spending IQ</div>
+      <div class="brand-date">Dec 31, 2025 · categorised by behaviour, not just MCC</div>
+    </div>
   </div>
-  <span class="brand-date">Dec 31, 2025</span>
+  <span class="pill pill-blue"><i class="ti ti-shield-check" style="font-size:10px;"></i> Decline Shield on</span>
 </div>
 
 <!-- ══════════════════════════════════════
-     1. SPENDING HISTORY
+     PUSH NOTIFICATION  (the one ranked hero → the only nudge the user gets)
+     ══════════════════════════════════════ -->
+<div class="push">
+  <div class="push-icon"><i class="ti ti-alert-triangle"></i></div>
+  <div class="push-body">
+    <div class="push-top">
+      <span class="push-app">Spending IQ</span>
+      <span class="push-time">now</span>
+    </div>
+    <div class="push-title">Heads up — you could get declined again</div>
+    <div class="push-text">Eetcafe Blauwe (£16.55) is due in 3 days and you've been short before. Tap to fix it.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     1. DECLINE SHIELD  ★ HERO — predict & prevent the next decline
+     ══════════════════════════════════════ -->
+<div class="card card-hero" id="card-decline">
+  <div class="card-header" onclick="toggle('decline')">
+    <div class="header-left">
+      <span class="label">Decline Shield · preventive</span>
+      <span class="mini-val big">Avoid your next decline</span>
+      <span class="mini-sub">8 insufficient-balance declines · 6 months running</span>
+    </div>
+    <div class="header-right">
+      <span class="pill pill-red"><i class="ti ti-alert-triangle" style="font-size:10px;"></i> Alert</span>
+      <i class="ti ti-chevron-down chevron open" id="chev-decline"></i>
+    </div>
+  </div>
+  <div class="card-body" id="body-decline">
+    <p class="lead">
+      You've had <b>8 payments declined for insufficient balance</b> across the last
+      <b>6 months</b>, and <span class="hot">Eetcafe Blauwe (£16.55) is due in 3 days</span>.
+      Top up now and it won't bounce.
+    </p>
+
+    <div class="stat-grid-3">
+      <div class="stat-box"><div class="label">Declined</div><div class="stat-val" style="color:var(--red);">8</div></div>
+      <div class="stat-box"><div class="label">Decline rate</div><div class="stat-val" style="color:var(--red);">27%</div></div>
+      <div class="stat-box"><div class="label">Next charge</div><div class="stat-val">3 days</div></div>
+    </div>
+
+    <div class="label" style="margin-bottom:8px;">Where you got declined</div>
+    <div class="row">
+      <div><div class="row-name">gracht.app</div><div class="row-sub"><span class="pill pill-tag">Digital</span></div></div>
+      <span class="row-amt" style="color:var(--red);">declined</span>
+    </div>
+    <div class="row">
+      <div><div class="row-name">Spoorvervoer 8</div><div class="row-sub"><span class="pill pill-tag">Transport</span></div></div>
+      <span class="row-amt" style="color:var(--red);">declined</span>
+    </div>
+    <div class="row">
+      <div><div class="row-name">tulp.nl/abonnement</div><div class="row-sub"><span class="pill pill-tag">Digital</span></div></div>
+      <span class="row-amt" style="color:var(--red);">declined</span>
+    </div>
+
+    <div class="detail-block">
+      <div class="label" style="margin-bottom:4px;">What we know — and don't</div>
+      <div style="font-size:11px;color:#bbb;line-height:1.5;">
+        Declines and the next charge date are <b style="color:#ddd;">measured / predicted from your history</b>.
+        We don't read your live balance, so we won't invent a “you're £X short” figure —
+        we just flag the risk window and let you act.
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <button class="cta cta-red"><i class="ti ti-wallet"></i> Top up £25</button>
+      <button class="cta cta-indigo"><i class="ti ti-sparkles"></i> Ask Spending IQ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     FINANCIAL AGENT  (the differentiator — computed-not-hallucinated + one-tap action)
+     ══════════════════════════════════════ -->
+<div class="agent-card">
+  <div class="agent-head">
+    <div class="agent-avatar"><i class="ti ti-sparkles"></i></div>
+    <div>
+      <div class="agent-name">Spending IQ</div>
+      <div class="agent-tag">claude-opus-4-8 · every number computed, never guessed</div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="bubble bubble-user">why do I keep getting declined?</div>
+
+    <div class="bubble bubble-iq">
+      You've had <span class="num">8</span> payments declined for <b>insufficient balance</b>
+      this half-year — all small recurring charges (gracht.app, tulp.nl/abonnement,
+      Spoorvervoer). Your next one, <b>Eetcafe Blauwe £16.55</b>, lands in
+      <span class="num">3 days</span>.
+      <div class="tool-chip"><i class="ti ti-database"></i> explain_insight("decline_shield")</div>
+    </div>
+
+    <div class="bubble bubble-user">what can I trim to free up cash?</div>
+
+    <div class="bubble bubble-iq">
+      <b>Digital &amp; Subscriptions</b> is your one stretched category: <span class="num">£56</span>
+      this month vs your usual <span class="num">£38</span> (<b>+48%</b>). The big one is
+      <b>gracht.app £14.73</b>, renewing Jan 26. Want me to cap that category at £40 or flag gracht.app?
+      <div class="tool-chip"><i class="ti ti-database"></i> explain_insight("overspend_alert") · category_spending()</div>
+    </div>
+
+    <div class="action-row">
+      <button class="action-btn" onclick="confirmAction()"><i class="ti ti-target"></i> Set £40 Digital budget</button>
+      <button class="action-btn"><i class="ti ti-flag"></i> Flag gracht.app</button>
+    </div>
+
+    <div id="agent-confirm" style="display:none;" class="confirmed">
+      <i class="ti ti-check"></i> Budget set: Digital &amp; Subscriptions capped at £40/mo (simulated)
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     2. OVERSPEND ALERT  — personal baseline, not a population average
+     ══════════════════════════════════════ -->
+<div class="card card-warning" id="card-over">
+  <div class="card-header" onclick="toggle('over')">
+    <div class="header-left">
+      <span class="label">Overspend alert · personal baseline</span>
+      <span class="mini-val">48% over your usual Digital &amp; Subscriptions</span>
+      <span class="mini-sub">£56 this month vs your typical £38</span>
+    </div>
+    <div class="header-right">
+      <span class="pill pill-amber"><i class="ti ti-alert-circle" style="font-size:10px;"></i> Warning</span>
+      <i class="ti ti-chevron-down chevron open" id="chev-over"></i>
+    </div>
+  </div>
+  <div class="card-body" id="body-over">
+    <div class="stat-grid-3">
+      <div class="stat-box"><div class="label">This month</div><div class="stat-val" style="color:var(--amber);">£56</div></div>
+      <div class="stat-box"><div class="label">Your usual</div><div class="stat-val">£38</div></div>
+      <div class="stat-box"><div class="label">Over by</div><div class="stat-val" style="color:var(--amber);">+48%</div></div>
+    </div>
+    <div style="margin-bottom:6px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:2px;">
+        <span style="font-size:11px;color:#aaa;">This month</span><span style="font-size:10px;color:var(--amber);">£56</span></div>
+      <div class="bar-track"><div class="bar-amber" style="width:100%;opacity:1;"></div></div>
+      <div style="display:flex;justify-content:space-between;margin:6px 0 2px;">
+        <span style="font-size:11px;color:#aaa;">Your 4-month baseline</span><span style="font-size:10px;color:var(--text-muted);">£38</span></div>
+      <div class="bar-track"><div class="bar-track" style="background:#555;height:5px;width:67%;border-radius:3px;"></div></div>
+    </div>
+    <div class="detail-block">
+      <div class="label" style="margin-bottom:4px;">Why this fired (and others didn't)</div>
+      <div style="font-size:11px;color:#bbb;line-height:1.5;">
+        We compare you to <b style="color:#ddd;">your own</b> median for this category (robust z = 1.05),
+        not a population average — so a naturally big spender isn't nagged, and we only fire on
+        well-sampled, stable categories.
+      </div>
+    </div>
+    <button class="cta cta-amber"><i class="ti ti-target"></i> Set a £40 budget</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     3. SPENDING HISTORY  — the clean money map (categorisation payoff)
      ══════════════════════════════════════ -->
 <div class="card card-neutral" id="card-spend">
   <div class="card-header" onclick="toggle('spend')">
     <div class="header-left">
       <span class="label">Spending history</span>
-      <span class="mini-val">£2,064 peak · Jan forecast £1,699</span>
-      <span class="mini-sub">Jul 2025 – Jan 2026 · 11 categories</span>
+      <span class="mini-val">£196 peak · Jan forecast £152</span>
+      <span class="mini-sub">12 clean categories — from 396 raw MCC labels</span>
     </div>
-    <div class="header-right">
-      <i class="ti ti-chevron-down chevron open" id="chev-spend"></i>
-    </div>
+    <div class="header-right"><i class="ti ti-chevron-down chevron open" id="chev-spend"></i></div>
   </div>
   <div class="card-body" id="body-spend">
     <div class="chart-legend" id="chart-legend"></div>
-    <div style="position:relative;width:100%;height:250px;">
+    <div style="position:relative;width:100%;height:240px;">
       <canvas id="spendChart" role="img" aria-label="Stacked bar chart of monthly spending Jul 2025 to Jan 2026">Monthly spending by category.</canvas>
     </div>
     <div class="detail-block">
-      <div class="label" style="margin-bottom:8px;">Monthly totals</div>
-      <div class="totals-wrap" id="monthly-totals"></div>
+      <div class="label" style="margin-bottom:4px;">Before → after</div>
+      <div style="font-size:11px;color:#bbb;line-height:1.5;">
+        gracht.app &amp; tulp.nl land under MCC labels like <i>“Record Shops”</i> and <i>“Computer Software Stores.”</i>
+        We unify them into one <b style="color:#a5b4fc;">Digital &amp; Subscriptions</b> bar — the prerequisite for
+        every insight above.
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════
-     2. CASHFLOW FORECAST
+     4. 30-DAY CASHFLOW  — context tile (no fake deficit: this data has no income)
      ══════════════════════════════════════ -->
-<div class="card card-alert" id="card-cash">
+<div class="card card-info" id="card-cash">
   <div class="card-header" onclick="toggle('cash')">
     <div class="header-left">
-      <span class="label">30-day cashflow</span>
-      <span class="mini-val" style="color:var(--red);">−£1,992 projected</span>
-      <span class="mini-sub">£66/day burn rate · 3 upcoming charges</span>
+      <span class="label">Upcoming charges · next 30 days</span>
+      <span class="mini-val">£48 in 3 known charges</span>
+      <span class="mini-sub">predicted from cadence · ~£7/day discretionary</span>
     </div>
     <div class="header-right">
-      <span class="pill pill-red"><i class="ti ti-alert-triangle" style="font-size:10px;"></i> Alert</span>
+      <span class="pill pill-blue"><i class="ti ti-calendar" style="font-size:10px;"></i> Forecast</span>
       <i class="ti ti-chevron-down chevron open" id="chev-cash"></i>
     </div>
   </div>
   <div class="card-body" id="body-cash">
-    <div class="flow-bar-wrap">
-      <div class="flow-labels">
-        <div><div class="label" style="margin-bottom:2px;">Inflow</div><div style="font-size:16px;color:var(--green);font-weight:600;">£0</div></div>
-        <div style="text-align:right;"><div class="label" style="margin-bottom:2px;">Outflow</div><div style="font-size:16px;color:var(--red);font-weight:600;">£1,992</div></div>
-      </div>
-      <div class="flow-track"><div class="flow-fill" style="width:100%;"></div></div>
-      <div class="flow-meta">
-        <span style="font-size:10px;color:var(--text-muted);">Discretionary £1,980</span>
-        <span style="font-size:10px;color:var(--text-muted);">Recurring £12</span>
-      </div>
-    </div>
-
-    <div class="stat-grid-3">
-      <div class="stat-box"><div class="label">Daily burn</div><div class="stat-val" style="color:var(--red);">£66</div></div>
-      <div class="stat-box"><div class="label">Recurring</div><div class="stat-val">£12.44</div></div>
-      <div class="stat-box"><div class="label">Recent avg</div><div class="stat-val">£1,779</div></div>
-    </div>
-
-    <div class="label" style="margin-bottom:8px;">Upcoming charges</div>
     <div class="row">
-      <div>
-        <div class="row-name">Oude Plein Rijswijk V.O.F.</div>
-        <div class="row-sub"><span>Jan 20</span><span class="pill pill-tag">Digital</span></div>
-      </div>
-      <span class="row-amt">£3.98</span>
+      <div><div class="row-name">Eetcafe Blauwe</div><div class="row-sub"><span>Jan 4</span><span class="pill pill-tag">Dining</span></div></div>
+      <span class="row-amt">£16.55</span>
     </div>
     <div class="row">
-      <div>
-        <div class="row-name">Arriva Noord-Brabant B.V.</div>
-        <div class="row-sub"><span>Jan 23</span><span class="pill pill-tag">Transport</span></div>
-      </div>
-      <span class="row-amt">£1.58</span>
+      <div><div class="row-name">Eetcafe Blauwe</div><div class="row-sub"><span>Jan 26</span><span class="pill pill-tag">Dining</span></div></div>
+      <span class="row-amt">£16.55</span>
     </div>
     <div class="row">
-      <div>
-        <div class="row-name">Nieuwe Brug Eenmanszaak</div>
-        <div class="row-sub"><span>Jan 24</span><span class="pill pill-tag">Digital</span></div>
-      </div>
-      <span class="row-amt">£6.88</span>
+      <div><div class="row-name">gracht.app</div><div class="row-sub"><span>Jan 26</span><span class="pill pill-tag">Digital</span></div></div>
+      <span class="row-amt">£14.73</span>
     </div>
-
     <div class="detail-block">
-      <div class="label" style="margin-bottom:4px;">No income expected in next 30 days</div>
-      <div style="font-size:11px;color:var(--text-muted);">Add expected income to improve forecast accuracy.</div>
+      <div class="label" style="margin-bottom:4px;">Honest by design</div>
+      <div style="font-size:11px;color:#bbb;line-height:1.5;">
+        This dataset has no recurring income to net against, so we <b style="color:#ddd;">don't</b> show a scary
+        “projected deficit.” Just the charges we can actually predict — feeding the Decline Shield above.
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════
-     3. SUBSCRIPTION RADAR
+     5. PEER BENCHMARKING  — honest, guarded against tiny-cohort artifacts
      ══════════════════════════════════════ -->
-<div class="card card-alert" id="card-subs">
-  <div class="card-header" onclick="toggle('subs')">
-    <div class="header-left">
-      <span class="label">Subscription radar</span>
-      <span class="mini-val">£32/mo · £387/yr</span>
-      <span class="mini-sub">1 price hike · 1 forgotten · 1 active</span>
-    </div>
-    <div class="header-right">
-      <span class="pill pill-red"><i class="ti ti-alert-triangle" style="font-size:10px;"></i> Alert</span>
-      <i class="ti ti-chevron-down chevron open" id="chev-subs"></i>
-    </div>
-  </div>
-  <div class="card-body" id="body-subs">
-    <div class="stat-grid-3">
-      <div class="stat-box"><div class="label">Active</div><div class="stat-val" style="color:var(--green);">1</div></div>
-      <div class="stat-box"><div class="label">Price hike</div><div class="stat-val" style="color:var(--red);">1</div></div>
-      <div class="stat-box"><div class="label">Forgotten</div><div class="stat-val" style="color:var(--purple);">1</div></div>
-    </div>
-
-    <div class="sub-row">
-      <div>
-        <div class="row-name">winkel.nl</div>
-        <div class="row-sub">Irregular · 3 charges · since Aug 2025</div>
-      </div>
-      <div style="text-align:right;">
-        <div class="row-amt" style="margin-bottom:3px;">£18.98/mo</div>
-        <span class="tag tag-active">active</span>
-      </div>
-    </div>
-    <div class="sub-row">
-      <div>
-        <div class="row-name">Nieuwe Brug Eenmanszaak</div>
-        <div class="row-sub" style="color:var(--red);">+32.4% price increase · £6.88 → £8.89</div>
-      </div>
-      <div style="text-align:right;">
-        <div class="row-amt" style="margin-bottom:3px;">£6.88/mo</div>
-        <span class="tag tag-hike">price hike</span>
-      </div>
-    </div>
-    <div class="sub-row">
-      <div>
-        <div class="row-name">Zilveren Park Hilversum</div>
-        <div class="row-sub">Monthly · last charged Nov 24, 2025</div>
-      </div>
-      <div style="text-align:right;">
-        <div class="row-amt" style="margin-bottom:3px;">£6.35/mo</div>
-        <span class="tag tag-forgotten">forgotten</span>
-      </div>
-    </div>
-
-    <div class="detail-block">
-      <div class="label" style="margin-bottom:4px;">Potential savings</div>
-      <div style="font-size:12px;color:#ccc;">Cancel forgotten + hike subs → save <span style="color:var(--green);font-weight:600;">£13.23/mo · £158.76/yr</span></div>
-    </div>
-    <button class="cta cta-red">
-      <i class="ti ti-x"></i> Review subscriptions
-    </button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     4. PEER BENCHMARKING
-     ══════════════════════════════════════ -->
-<div class="card card-alert" id="card-peer">
+<div class="card card-info" id="card-peer">
   <div class="card-header" onclick="toggle('peer')">
     <div class="header-left">
       <span class="label">Peer benchmarking</span>
-      <span class="mini-val">44× peers on Entertainment</span>
-      <span class="mini-sub">Top 1% · 25–34 · Flevoland · 167 users</span>
+      <span class="mini-val">You're in line with your peers</span>
+      <span class="mini-sub">25–34 · Noord-Holland · 1,673 users</span>
     </div>
     <div class="header-right">
-      <span class="pill pill-red"><i class="ti ti-alert-triangle" style="font-size:10px;"></i> Alert</span>
+      <span class="pill pill-blue"><i class="ti ti-users" style="font-size:10px;"></i> Info</span>
       <i class="ti ti-chevron-down chevron open" id="chev-peer"></i>
     </div>
   </div>
   <div class="card-body" id="body-peer">
-    <div class="stat-grid-2">
-      <div class="stat-box"><div class="label">Flagged categories</div><div class="stat-val" style="color:var(--red);">7</div></div>
-      <div class="stat-box"><div class="label">Cohort size</div><div class="stat-val">167</div></div>
-    </div>
     <div id="peer-bars"></div>
     <div class="detail-block">
-      <div class="label" style="margin-bottom:6px;">Below or near median</div>
-      <div class="mom-row"><span style="font-size:11px;color:#aaa;">Health</span><span style="font-size:11px;color:var(--green);">0.75× · under median</span></div>
-      <div class="mom-row"><span style="font-size:11px;color:#aaa;">Travel</span><span style="font-size:11px;color:var(--text-muted);">1.12× · near median</span></div>
+      <div class="label" style="margin-bottom:4px;">No alarm raised</div>
+      <div style="font-size:11px;color:#bbb;line-height:1.5;">
+        Your highest category is Digital at <b style="color:#ddd;">2.3× the cohort median</b> (72nd percentile) —
+        notable but normal. We require a meaningful cohort median before flagging, so a near-zero peer average
+        can't manufacture a fake “40× your peers.”
+      </div>
     </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     5. FX FEE LEAKAGE
-     ══════════════════════════════════════ -->
-<div class="card card-warning" id="card-fx">
-  <div class="card-header" onclick="toggle('fx')">
-    <div class="header-left">
-      <span class="label">FX fee leakage</span>
-      <span class="mini-val">£44.21 in fees · ~£89/yr</span>
-      <span class="mini-sub">28 transactions · 38 currencies</span>
-    </div>
-    <div class="header-right">
-      <span class="pill pill-amber"><i class="ti ti-alert-circle" style="font-size:10px;"></i> Warning</span>
-      <i class="ti ti-chevron-down chevron open" id="chev-fx"></i>
-    </div>
-  </div>
-  <div class="card-body" id="body-fx">
-    <div class="stat-grid-3">
-      <div class="stat-box"><div class="label">Total fees</div><div class="stat-val" style="color:var(--amber);">£44.21</div></div>
-      <div class="stat-box"><div class="label">Projected/yr</div><div class="stat-val" style="color:var(--amber);">£88.66</div></div>
-      <div class="stat-box"><div class="label">Avg fee</div><div class="stat-val">£1.58</div></div>
-    </div>
-
-    <div class="label" style="margin-bottom:8px;">Monthly fees</div>
-    <div class="fx-spark" id="fx-spark"></div>
-    <div class="fx-months" id="fx-months"></div>
-
-    <div class="divider"></div>
-    <div class="label" style="margin-bottom:6px;">Top fee transactions</div>
-    <div id="top-fees"></div>
-
-    <div class="detail-block">
-      <div class="label" style="margin-bottom:4px;">Avoidable fees</div>
-      <div style="font-size:11px;color:#ccc;">£0.13 charged on GBP transactions — these shouldn't carry FX fees at all.</div>
-    </div>
-    <button class="cta cta-amber">
-      <i class="ti ti-credit-card"></i> Review card plan
-    </button>
   </div>
 </div>
 
@@ -497,8 +465,8 @@
   <div class="card-header" onclick="toggle('mom')">
     <div class="header-left">
       <span class="label">Category momentum</span>
-      <span class="mini-val">Transport +39% · Shopping −89% MoM</span>
-      <span class="mini-sub">Month-on-month changes · Dec 2025</span>
+      <span class="mini-val">Digital +237% · Groceries −94% MoM</span>
+      <span class="mini-sub">Month-on-month change · Dec 2025</span>
     </div>
     <div class="header-right">
       <span class="pill pill-blue"><i class="ti ti-trending-up" style="font-size:10px;"></i> MoM</span>
@@ -507,14 +475,33 @@
   </div>
   <div class="card-body" id="body-mom">
     <div id="momentum-rows"></div>
-    <div class="detail-block" style="margin-top:10px;">
-      <div class="label" style="margin-bottom:6px;">6-month trend slope</div>
-      <div class="mom-row"><span style="font-size:11px;color:#aaa;">Fees & Charges</span><span style="font-size:11px;color:var(--red);">+85.7%/mo trend ↑</span></div>
-      <div class="mom-row"><span style="font-size:11px;color:#aaa;">Digital & Sub.</span><span style="font-size:11px;color:var(--red);">+5.1%/mo trend ↑</span></div>
-      <div class="mom-row"><span style="font-size:11px;color:#aaa;">Travel</span><span style="font-size:11px;color:var(--green);">−39.1%/mo trend ↓</span></div>
-    </div>
   </div>
 </div>
+
+<!-- ══════════════════════════════════════
+     7. FX FEE LEAKAGE  — quiet context tile (fees ~absent in this data)
+     ══════════════════════════════════════ -->
+<!-- <div class="card card-info" id="card-fx">
+  <div class="card-header" onclick="toggle('fx')">
+    <div class="header-left">
+      <span class="label">FX &amp; fee leakage</span>
+      <span class="mini-val">£0.76 in fees · ~£2/yr</span>
+      <span class="mini-sub">context only — fees are negligible here</span>
+    </div>
+    <div class="header-right">
+      <span class="pill pill-blue"><i class="ti ti-info-circle" style="font-size:10px;"></i> Info</span>
+      <i class="ti ti-chevron-down chevron" id="chev-fx"></i>
+    </div>
+  </div>
+  <div class="card-body collapsed" id="body-fx">
+    <div class="detail-block" style="margin-top:0;">
+      <div style="font-size:11px;color:#bbb;line-height:1.5;">
+        Total FX markup across all users in this synthetic dataset is ~£363, so we <b style="color:#ddd;">cut this
+        as a hero</b> and keep it as a quiet tile — we don't fake a problem that isn't in the data.
+      </div>
+    </div>
+  </div>
+</div> -->
 
 <script>
   /* ─── Toggle ─── */
@@ -525,90 +512,53 @@
     body.classList.toggle('collapsed', open);
     chev.classList.toggle('open', !open);
   }
+  function confirmAction() { document.getElementById('agent-confirm').style.display = 'flex'; }
 
-  /* ─── Peer bars ─── */
+  /* ─── Peer bars (real ratios, all modest) ─── */
   const peers = [
-    { cat: 'Digital & Sub.', yours: 916.08, median: 27.31, ratio: 33.55 },
-    { cat: 'Entertainment',  yours: 267.10, median:  6.09, ratio: 43.87 },
-    { cat: 'Dining',         yours: 233.19, median: 25.47, ratio:  9.16 },
-    { cat: 'Shopping',       yours: 126.21, median: 26.70, ratio:  4.73 },
-    { cat: 'Transport',      yours:  97.29, median: 15.29, ratio:  6.36 },
-    { cat: 'Groceries',      yours:  57.66, median: 16.30, ratio:  3.54 },
-    { cat: 'Bills',          yours:  28.46, median:  7.78, ratio:  3.66 },
+    { cat: 'Digital & Sub.', yours: 63.40, median: 27.34, ratio: 2.32 },
+    { cat: 'Groceries',      yours: 33.30, median: 17.43, ratio: 1.91 },
+    { cat: 'Dining',         yours: 28.73, median: 20.88, ratio: 1.38 },
+    { cat: 'Transport',      yours:  5.98, median: 10.86, ratio: 0.55 },
+    { cat: 'Entertainment',  yours:  2.53, median:  7.43, ratio: 0.34 },
+    { cat: 'Shopping',       yours:  7.19, median: 21.27, ratio: 0.34 },
   ];
-  const maxPeer = 916.08;
+  const maxPeer = 63.40;
   const pb = document.getElementById('peer-bars');
   peers.forEach(p => {
     const yp = (p.yours / maxPeer * 100).toFixed(1);
     const mp = (p.median / maxPeer * 100).toFixed(1);
+    const hot = p.ratio >= 1;
     pb.innerHTML += `
       <div style="margin-bottom:9px;">
         <div style="display:flex;justify-content:space-between;margin-bottom:2px;">
           <span style="font-size:11px;color:#aaa;">${p.cat}</span>
-          <span style="font-size:10px;color:var(--red);font-weight:600;">${p.ratio.toFixed(1)}×</span>
+          <span style="font-size:10px;color:${hot?'var(--amber)':'var(--green)'};font-weight:600;">${p.ratio.toFixed(1)}×</span>
         </div>
-        <div class="bar-track"><div class="bar-red" style="width:${yp}%;"></div></div>
-        <div class="bar-track"><div class="bar-amber" style="width:${mp}%;"></div></div>
+        <div class="bar-track"><div class="${hot?'bar-amber':'bar-blue'}" style="width:${yp}%;opacity:1;"></div></div>
+        <div class="bar-track"><div class="bar-track" style="background:#444;height:5px;width:${mp}%;border-radius:3px;"></div></div>
         <div style="display:flex;justify-content:space-between;">
-          <span style="font-size:9px;color:var(--red);">You £${p.yours.toFixed(0)}/mo</span>
-          <span style="font-size:9px;color:var(--amber);">Peers £${p.median.toFixed(0)}/mo</span>
+          <span style="font-size:9px;color:#aaa;">You £${p.yours.toFixed(0)}/mo</span>
+          <span style="font-size:9px;color:var(--text-muted);">Peers £${p.median.toFixed(0)}/mo</span>
         </div>
       </div>`;
   });
 
-  /* ─── FX sparkline ─── */
-  const fxData = [
-    { m:'Jul', f:5.62 }, { m:'Aug', f:5.49 }, { m:'Sep', f:4.49 },
-    { m:'Oct', f:15.08 }, { m:'Nov', f:6.54 }, { m:'Dec', f:6.99 },
-  ];
-  const maxFx = 15.08;
-  const spark = document.getElementById('fx-spark');
-  const fxm   = document.getElementById('fx-months');
-  fxData.forEach(d => {
-    const h = Math.max(3, Math.round(d.f / maxFx * 42));
-    const isMax = d.f === maxFx;
-    spark.innerHTML += `<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;">
-      <div style="width:100%;height:${h}px;background:${isMax?'#f59e0b':'#78350f'};border-radius:2px 2px 0 0;"></div>
-    </div>`;
-    fxm.innerHTML += `<span style="flex:1;text-align:center;font-size:9px;color:var(--text-dim);">${d.m}</span>`;
-  });
-
-  /* ─── Top fees ─── */
-  const fees = [
-    { merchant:'Frituur Rode',          fee:3.86, currency:'THB' },
-    { merchant:'Piet & Piet Capelle',   fee:3.86, currency:'HUF' },
-    { merchant:'Sofie & Sofie Voorburg',fee:3.86, currency:'RON' },
-    { merchant:'Blauwe Brug',           fee:3.86, currency:'RON' },
-    { merchant:'Frituur Rode',          fee:3.86, currency:'BGN' },
-  ];
-  const tf = document.getElementById('top-fees');
-  fees.forEach(f => {
-    tf.innerHTML += `<div class="row">
-      <div style="display:flex;align-items:center;gap:7px;">
-        <span class="currency-tag">${f.currency}</span>
-        <span class="row-name">${f.merchant}</span>
-      </div>
-      <span style="font-size:12px;color:var(--amber);font-weight:500;">£${f.fee.toFixed(2)}</span>
-    </div>`;
-  });
-
-  /* ─── Momentum ─── */
+  /* ─── Momentum (real MoM) ─── */
   const momentum = [
-    { cat:'Shopping',          mom:-88.7, dir:'down' },
-    { cat:'Dining & Takeaway', mom:-72.2, dir:'down' },
-    { cat:'Entertainment',     mom:-67.0, dir:'down' },
-    { cat:'Groceries',         mom:-53.5, dir:'down' },
-    { cat:'Transport',         mom: 39.2, dir:'up'   },
-    { cat:'Digital & Sub.',    mom: 18.8, dir:'up'   },
-    { cat:'Bills & Utilities', mom:  null, dir:'new' },
-    { cat:'Cash & ATM',        mom:  null, dir:'new' },
+    { cat:'Digital & Sub.',    mom: 237.4, dir:'up'   },
+    { cat:'Groceries',         mom: -93.9, dir:'down' },
+    { cat:'Dining & Takeaway', mom:  null, dir:'new'  },
+    { cat:'Transport',         mom:  null, dir:'new'  },
+    { cat:'Shopping',          mom:  null, dir:'flat' },
+    { cat:'Entertainment',     mom:  null, dir:'flat' },
   ];
   const mr = document.getElementById('momentum-rows');
   momentum.forEach(m => {
-    const isUp = m.dir === 'up', isNew = m.dir === 'new';
-    const color  = isNew ? 'var(--blue)' : isUp ? 'var(--red)' : 'var(--green)';
-    const icon   = isNew ? 'ti-sparkles' : isUp ? 'ti-trending-up' : 'ti-trending-down';
-    const label  = isNew ? 'new' : (m.mom !== null ? (m.mom > 0 ? `+${m.mom.toFixed(1)}%` : `${m.mom.toFixed(1)}%`) : '—');
+    const isUp = m.dir === 'up', isNew = m.dir === 'new', isFlat = m.dir === 'flat';
+    const color  = isNew ? 'var(--blue)' : isUp ? 'var(--red)' : isFlat ? 'var(--text-muted)' : 'var(--green)';
+    const icon   = isNew ? 'ti-sparkles' : isUp ? 'ti-trending-up' : isFlat ? 'ti-minus' : 'ti-trending-down';
+    const label  = isNew ? 'new this month' : isFlat ? 'steady' : (m.mom > 0 ? `+${m.mom.toFixed(0)}%` : `${m.mom.toFixed(0)}%`);
     mr.innerHTML += `<div class="mom-row">
       <div style="display:flex;align-items:center;gap:7px;">
         <i class="ti ${icon}" style="font-size:13px;color:${color};"></i>
@@ -618,44 +568,23 @@
     </div>`;
   });
 
-  /* ─── Spending history chart ─── */
+  /* ─── Spending history chart (real series) ─── */
   const cats = {
-    'Digital & Sub.': { hist:[781.94,753.27,1007.97,1052.58,868.78,1031.95], fc:1032.32, color:'#6366f1' },
-    'Entertainment':  { hist:[453.65,288.09,310.71, 149.80,300.93,  99.42], fc: 130.56, color:'#ec4899' },
-    'Dining':         { hist:[368.18,427.89,147.10, 124.95,259.12,  71.92], fc:  92.11, color:'#f97316' },
-    'Shopping':       { hist:[ 31.66,118.37, 43.57, 316.22,222.25,  25.22], fc: 184.66, color:'#eab308' },
-    'Transport':      { hist:[100.79, 63.83, 66.99, 115.95, 98.73, 137.42], fc: 124.17, color:'#14b8a6' },
-    'Cash & ATM':     { hist:[ 72.19,111.61, 90.39, 190.78,   0.0,  40.24], fc:  60.89, color:'#8b5cf6' },
-    'Groceries':      { hist:[102.84, 39.81, 12.19, 122.79, 46.63,  21.67], fc:  46.94, color:'#22c55e' },
-    'Travel':         { hist:[113.79,   0.0, 49.34,  74.87,   0.0,   0.00], fc:   5.14, color:'#06b6d4' },
-    'Bills':          { hist:[ 38.76, 54.46,  0.00,  39.99,   0.0,  37.56], fc:  20.69, color:'#a78bfa' },
+    'Digital & Sub.': { hist:[56.87,106.47,33.79,70.51,25.78,86.98], fc:59.50, color:'#6366f1' },
+    'Dining':         { hist:[28.60, 68.50,11.36,58.21, 0.00, 5.69], fc:11.35, color:'#f97316' },
+    'Groceries':      { hist:[ 6.84, 17.40, 2.46, 7.37,156.28, 9.47], fc:67.24, color:'#22c55e' },
+    'Shopping':       { hist:[ 0.00,  0.00, 0.00,43.13, 0.00, 0.00], fc:12.94, color:'#eab308' },
+    'Transport':      { hist:[23.53,  4.08, 0.00, 1.21, 0.00, 7.07], fc: 0.00, color:'#14b8a6' },
+    'Entertainment':  { hist:[ 0.00,  0.00,15.20, 0.00, 0.00, 0.00], fc: 0.51, color:'#ec4899' },
   };
-  const totals = [2063.8, 1857.33, 1755.11, 2187.93, 1796.44, 1465.81, 1698.58];
   const monthLabels = ['Jul','Aug','Sep','Oct','Nov','Dec'];
   const allLabels = [...monthLabels, 'Jan ↗'];
 
   const legend = document.getElementById('chart-legend');
   Object.entries(cats).forEach(([name, d]) => {
-    legend.innerHTML += `<span>
-      <span class="legend-dot" style="background:${d.color};"></span>${name}
-    </span>`;
+    legend.innerHTML += `<span><span class="legend-dot" style="background:${d.color};"></span>${name}</span>`;
   });
 
-  /* Monthly totals mini bars */
-  const maxTotal = Math.max(...totals);
-  const totalsEl = document.getElementById('monthly-totals');
-  totals.forEach((t, i) => {
-    const lbl = i < 6 ? monthLabels[i] : 'Jan↗';
-    const h = Math.round(t / maxTotal * 38);
-    const isFc = i === 6;
-    totalsEl.innerHTML += `<div class="total-col">
-      <div class="total-amt">£${Math.round(t/100)*100}</div>
-      <div class="total-bar" style="height:${h}px;background:${isFc?'#2a3040':'#3a3a3a'};${isFc?'border:0.5px dashed #4a5060;':''};"></div>
-      <div class="total-lbl">${lbl}</div>
-    </div>`;
-  });
-
-  /* Chart.js stacked bar */
   new Chart(document.getElementById('spendChart'), {
     type: 'bar',
     data: {
@@ -674,25 +603,11 @@
       maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: £${Math.round(ctx.raw)}`
-          }
-        }
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: £${Math.round(ctx.raw)}` } }
       },
       scales: {
-        x: {
-          stacked: true,
-          ticks: { color: '#555', font: { size: 10 }, autoSkip: false },
-          grid:   { color: '#1a1a1a' },
-          border: { color: '#222' }
-        },
-        y: {
-          stacked: true,
-          ticks: { color: '#555', font: { size: 10 }, callback: v => '£' + Math.round(v) },
-          grid:   { color: '#1a1a1a' },
-          border: { color: '#222' }
-        }
+        x: { stacked: true, ticks: { color: '#555', font: { size: 10 }, autoSkip: false }, grid: { color: '#1a1a1a' }, border: { color: '#222' } },
+        y: { stacked: true, ticks: { color: '#555', font: { size: 10 }, callback: v => '£' + Math.round(v) }, grid: { color: '#1a1a1a' }, border: { color: '#222' } }
       }
     }
   });

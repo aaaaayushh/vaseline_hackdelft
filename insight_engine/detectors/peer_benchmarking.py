@@ -25,10 +25,17 @@ class PeerBenchmarking(InsightDetector):
     type = "peer_benchmarking"
 
     def __init__(self, min_cohort: int = 30, surface_ratio: float = 1.3,
-                 surface_percentile: float = 0.75):
+                 surface_percentile: float = 0.75, max_ratio: float = 5.0,
+                 min_cohort_median: float = 20.0, min_user_monthly: float = 30.0):
         self.min_cohort = min_cohort
         self.surface_ratio = surface_ratio
         self.surface_percentile = surface_percentile
+        # Guard against the small-denominator artifact: a near-zero cohort
+        # median turns a normal user into "38× peers". Require a meaningful
+        # cohort median and user spend, and cap the headline ratio.
+        self.max_ratio = max_ratio
+        self.min_cohort_median = min_cohort_median
+        self.min_user_monthly = min_user_monthly
         self._bench: pd.DataFrame | None = None  # indexed by owner_id
 
     def fit(self, ctx: EngineContext) -> None:
@@ -96,10 +103,15 @@ class PeerBenchmarking(InsightDetector):
         cohort = str(rows["cohort"].iloc[0])
         cohort_size = int(rows["cohort_size"].max())
 
-        # categories where the user clearly outspends peers
+        # categories where the user clearly outspends peers — but only on a
+        # statistically meaningful base (real cohort median + real user spend),
+        # so we don't surface a divide-by-near-zero artifact.
         flagged = [c for c in cats
                    if (c["ratio"] or 0) >= self.surface_ratio
-                   and c["percentile"] >= self.surface_percentile]
+                   and (c["ratio"] or 0) <= self.max_ratio
+                   and c["percentile"] >= self.surface_percentile
+                   and c["cohort_median"] >= self.min_cohort_median
+                   and c["user_monthly"] >= self.min_user_monthly]
 
         if not flagged:
             # still emit an info card so the dashboard can show the comparison
