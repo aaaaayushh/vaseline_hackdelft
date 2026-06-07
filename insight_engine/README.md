@@ -11,6 +11,7 @@ insight_engine/
 ├─ taxonomy.py        # placeholder MCC→12-category mapper (until categorizer ships)
 ├─ base.py            # InsightDetector ABC, EngineContext
 ├─ ranking.py         # severity ranking + dedup → non-spammy feed
+├─ analytics.py       # SpendingAnalytics: deterministic chart queries (stats)
 ├─ engine.py          # InsightEngine: fit context once, build dashboard per user
 ├─ api.py             # FastAPI stub the RN app calls
 ├─ run_demo.py        # CLI smoke test / demo
@@ -37,10 +38,32 @@ uv run uvicorn insight_engine.api:app --reload
 ```python
 from insight_engine import load_enriched, InsightEngine
 
-df = load_enriched("output/df_clean_clean.parquet")
+df = load_enriched("output/df_enriched.parquet")
 engine = InsightEngine(df)                 # fits cohort baselines once
 payload = engine.dashboard(user_id)        # JSON-ready dict for React Native
 ```
+
+## Spending analytics (chart queries)
+Deterministic stats for the dashboard's spending-history page — separate from
+the insight detectors. Available via `engine.analytics` / `engine.<method>` or
+the `/charts/...` endpoints.
+
+```python
+engine.spending_history(user_id, months=6)
+# -> { categories[],                         # canonical stack/color order
+#      history: { months[], series{cat:[..]}, totals[] },   # one bar per month
+#      forecast: { month, by_category{}, total, is_forecast } }  # ghost bar
+
+engine.category_momentum(user_id, months=6)
+# -> { window[], categories: [ { category, last_month, prev_month,
+#        mom_pct_change, trend_pct_per_month, direction: up|down|flat|new,
+#        monthly[] } ] }                      # month-on-month rate of change
+```
+`spending_history` gives the stacked monthly bars **plus** a damped-linear-trend
+forecast "ghost bar" for next month, all sharing one category ordering so the
+front-end can color segments consistently. `category_momentum` is the
+goal-tracking signal (per-category MoM % change + window trend). Both are also
+embedded in `dashboard()` under `charts`.
 
 ## Dashboard payload
 ```jsonc
@@ -55,14 +78,24 @@ payload = engine.dashboard(user_id)        # JSON-ready dict for React Native
 ```
 Each card: `{ type, user_id, title, explanation, severity, level, payload, actions, insight_id }`.
 
-## Categorizer handoff
-The categorizer is built separately. Until it ships, `load_enriched` synthesizes
-`category` / `merchant_id` / `is_recurring` from the cleaned data via a
-placeholder mapper. When it's ready:
+## Categorizer handoff (now wired)
+The Categorization Engine ships `output/df_enriched.parquet` with the full
+contract already stamped: a clean 12-category `category`, stable `merchant_id`
+(`m_00000…`), `subcategory`, `confidence`, and a learned `is_recurring` flag.
+The engine reads it directly — no config needed:
 ```python
-df = load_enriched("enriched.parquet", category_col="category_pfc")
+df = load_enriched("output/df_enriched.parquet")   # contract columns kept as-is
 ```
-No detector code changes.
+Detectors group on the stable `merchant_id` but display
+`transaction_merchants_name`. Subscription Radar also trusts the categorizer's
+`is_recurring` flag as an acceptance signal.
+
+`load_enriched` stays backward-compatible: if any contract column is missing
+(e.g. running on the raw cleaned parquet), it falls back to the placeholder MCC
+mapper in `taxonomy.py`. To point at a differently-named clean category column:
+```python
+df = load_enriched("enriched.parquet", category_col="pfc_label")
+```
 
 ## Add a detector
 Subclass `InsightDetector`, set `type`, implement `detect` (and optionally

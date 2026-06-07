@@ -16,6 +16,7 @@ Public API::
 
 from .contract import Insight, Severity, load_enriched, ENRICHED_COLUMNS
 from .base import InsightDetector, EngineContext
+from .analytics import SpendingAnalytics
 from .engine import InsightEngine
 
 __all__ = [
@@ -25,5 +26,6 @@ __all__ = [
     "ENRICHED_COLUMNS",
     "InsightDetector",
     "EngineContext",
+    "SpendingAnalytics",
     "InsightEngine",
 ]

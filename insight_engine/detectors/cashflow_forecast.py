@@ -24,9 +24,10 @@ _CADENCE_TOL = 0.4  # interval CV must be below this to count as recurring
 
 
 def _recurring_streams(df: pd.DataFrame, min_charges: int = 3):
-    """Yield (merchant, cadence_days, typical_amount, last_date) for regular
-    streams in ``df`` (already filtered to one direction of flow)."""
-    for merchant, g in df.groupby("merchant_id"):
+    """Yield (merchant_id, name, cadence_days, typical_amount, last_date,
+    category) for regular streams in ``df`` (already filtered to one direction
+    of flow). Grouping is on the stable ``merchant_id``; ``name`` is for display."""
+    for merchant_id, g in df.groupby("merchant_id"):
         if len(g) < min_charges:
             continue
         g = g.sort_values("created_date")
@@ -41,7 +42,8 @@ def _recurring_streams(df: pd.DataFrame, min_charges: int = 3):
         if not (5 <= median_gap <= 400):
             continue
         yield (
-            str(merchant),
+            str(merchant_id),
+            str(g["transaction_merchants_name"].mode().iloc[0]),
             median_gap,
             float(g["txn_amount_gbp"].abs().median()),
             g["created_date"].iloc[-1],
@@ -67,32 +69,33 @@ class CashflowForecast(InsightDetector):
 
         # 1) upcoming known charges from recurring outflow streams.
         upcoming = []
-        for merchant, cad, amt, last, cat in _recurring_streams(payments):
+        for merchant_id, name, cad, amt, last, cat in _recurring_streams(payments):
             due = last + pd.Timedelta(days=cad)
             while due < as_of:
                 due += pd.Timedelta(days=cad)
             while due <= horizon_end:
-                upcoming.append({"merchant": merchant, "date": due,
-                                 "amount": round(amt, 2), "category": cat})
+                upcoming.append({"merchant": name, "merchant_id": merchant_id,
+                                 "date": due, "amount": round(amt, 2),
+                                 "category": cat})
                 due += pd.Timedelta(days=cad)
         upcoming.sort(key=lambda c: c["date"])
         known_outflow = round(sum(c["amount"] for c in upcoming), 2)
 
         # 2) projected recurring income.
         upcoming_income = []
-        for merchant, cad, amt, last, _cat in _recurring_streams(income):
+        for _mid, name, cad, amt, last, _cat in _recurring_streams(income):
             due = last + pd.Timedelta(days=cad)
             while due < as_of:
                 due += pd.Timedelta(days=cad)
             while due <= horizon_end:
-                upcoming_income.append({"source": merchant, "date": due,
+                upcoming_income.append({"source": name, "date": due,
                                         "amount": round(amt, 2)})
                 due += pd.Timedelta(days=cad)
         projected_inflow = round(sum(c["amount"] for c in upcoming_income), 2)
 
         # 3) discretionary burn = recent non-recurring daily spend run-rate.
         recent = payments[payments["created_date"] >= as_of - pd.Timedelta(days=self.recent_window_days)]
-        recurring_merchants = {m for m, *_ in _recurring_streams(payments)}
+        recurring_merchants = {mid for mid, *_ in _recurring_streams(payments)}
         discretionary = recent[~recent["merchant_id"].isin(recurring_merchants)]
         window = max((as_of - recent["created_date"].min()).days, 1) if not recent.empty else 1
         daily_burn = float(discretionary["txn_amount_gbp"].abs().sum()) / window

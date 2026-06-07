@@ -27,7 +27,7 @@ except ImportError:  # pragma: no cover - fastapi is optional until the app is b
 
 @lru_cache(maxsize=1)
 def get_engine() -> InsightEngine:
-    path = os.environ.get("INSIGHT_PARQUET", "output/df_clean_clean.parquet")
+    path = os.environ.get("INSIGHT_PARQUET", "output/df_enriched.parquet")
     category_col = os.environ.get("INSIGHT_CATEGORY") or None
     df = load_enriched(path, category_col=category_col)
     return InsightEngine(df)
@@ -62,6 +62,20 @@ def create_app():
             raise HTTPException(status_code=404, detail="unknown user_id")
         return {"user_id": user_id,
                 "insights": [i.to_dict() for i in eng.run_user(user_id)]}
+
+    @app.get("/charts/spending-history/{user_id}")
+    def spending_history(user_id: str, months: int = 6):
+        eng = get_engine()
+        if user_id not in eng._groups.groups:
+            raise HTTPException(status_code=404, detail="unknown user_id")
+        return eng.spending_history(user_id, months=months)
+
+    @app.get("/charts/category-momentum/{user_id}")
+    def category_momentum(user_id: str, months: int = 6):
+        eng = get_engine()
+        if user_id not in eng._groups.groups:
+            raise HTTPException(status_code=404, detail="unknown user_id")
+        return eng.category_momentum(user_id, months=months)
 
     return app
 

@@ -57,10 +57,9 @@ class SubscriptionRadar(InsightDetector):
         self.forgotten_max_amount = forgotten_max_amount
 
     @staticmethod
-    def _is_subscription_merchant(g: pd.DataFrame) -> bool:
+    def _is_subscription_merchant(g: pd.DataFrame, name: str) -> bool:
         cat = str(g["category"].mode().iloc[0])
-        name = str(g["merchant_id"].iloc[0]).lower()
-        return cat == "Digital & Subscriptions" or "abonnement" in name
+        return cat == "Digital & Subscriptions" or "abonnement" in name.lower()
 
     def detect(self, user_df: pd.DataFrame, ctx: EngineContext) -> list[Insight]:
         pay = user_df[user_df["type"].eq("CARD_PAYMENT")]
@@ -68,10 +67,11 @@ class SubscriptionRadar(InsightDetector):
             return []
 
         subs: list[dict] = []
-        for merchant, g in pay.groupby("merchant_id"):
+        for merchant_id, g in pay.groupby("merchant_id"):
             if len(g) < self.min_charges:
                 continue
             g = g.sort_values("created_date")
+            name = str(g["transaction_merchants_name"].mode().iloc[0])
             days = g["created_date"].values.astype("datetime64[D]")
             gaps = np.diff(days).astype("timedelta64[D]").astype(float)
             gaps = gaps[gaps > 0]
@@ -87,13 +87,20 @@ class SubscriptionRadar(InsightDetector):
             last_seen = g["created_date"].iloc[-1]
             span_days = max((last_seen - first_seen).days, 1)
 
-            # --- two acceptance paths --------------------------------------
+            # --- three acceptance paths ------------------------------------
             cad = _classify_cadence(median_gap)
             cadence_ok = cad is not None and cv <= self.max_cv
             merchant_ok = (
-                self._is_subscription_merchant(g) and amount_cv <= self.max_amount_cv
+                self._is_subscription_merchant(g, name) and amount_cv <= self.max_amount_cv
             )
-            if not (cadence_ok or merchant_ok):
+            # the Categorization Engine ships its own learned recurrence flag —
+            # trust it as a signal when the amount is stable.
+            flag_ok = (
+                "is_recurring" in g.columns
+                and bool(g["is_recurring"].mean() >= 0.5)
+                and amount_cv <= self.max_amount_cv
+            )
+            if not (cadence_ok or merchant_ok or flag_ok):
                 continue
 
             if cadence_ok:
@@ -105,7 +112,9 @@ class SubscriptionRadar(InsightDetector):
                 cadence_days = span_days / max(len(g) - 1, 1)
                 named = _classify_cadence(cadence_days)
                 cadence_name = named[0] if named else "irregular"
-                confidence = round(max(0.4, 0.7 - amount_cv), 2)
+                # categorizer agreement lifts confidence
+                base = 0.7 if flag_ok else 0.6
+                confidence = round(max(0.4, base - amount_cv), 2)
                 monthly_cost = float(amounts.sum()) / max(span_days / 30.4, 1)
 
             latest = float(amounts.iloc[-1])
@@ -121,7 +130,8 @@ class SubscriptionRadar(InsightDetector):
                 status = "forgotten"
 
             subs.append({
-                "merchant": str(merchant),
+                "merchant": name,
+                "merchant_id": str(merchant_id),
                 "category": str(g["category"].mode().iloc[0]),
                 "cadence": cadence_name,
                 "cadence_days": round(cadence_days, 1),

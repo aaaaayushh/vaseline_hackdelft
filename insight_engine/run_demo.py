@@ -18,7 +18,7 @@ from .engine import InsightEngine
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--parquet", default="output/df_clean_clean.parquet")
+    ap.add_argument("--parquet", default="output/df_enriched.parquet")
     ap.add_argument("--category-col", default=None,
                     help="clean category column from the categorizer, if available")
     ap.add_argument("--user", default=None, help="owner_id to inspect")

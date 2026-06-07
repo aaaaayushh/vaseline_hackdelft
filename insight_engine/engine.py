@@ -14,6 +14,7 @@ import pandas as pd
 from .base import EngineContext, InsightDetector
 from .contract import Insight
 from .detectors import default_detectors
+from .analytics import SpendingAnalytics
 from . import ranking
 
 
@@ -27,6 +28,8 @@ class InsightEngine:
         self.ctx.fit(self.detectors)
         # group index for fast per-user slicing
         self._groups = df.groupby("owner_id")
+        # deterministic stats query layer for the dashboard charts
+        self.analytics = SpendingAnalytics(df, as_of=self.ctx.as_of)
 
     # -- core ------------------------------------------------------------- #
 
@@ -49,7 +52,8 @@ class InsightEngine:
 
     # -- dashboard -------------------------------------------------------- #
 
-    def dashboard(self, user_id: str, *, top_n: int | None = None) -> dict:
+    def dashboard(self, user_id: str, *, top_n: int | None = None,
+                  chart_months: int = 6) -> dict:
         """Assemble the per-user dashboard payload for the React Native app.
 
         Structure::
@@ -59,7 +63,11 @@ class InsightEngine:
               "generated_at": ...,           # = engine as_of
               "hero": <top insight or null>, # drives the push notification
               "insights": [ <insight cards in priority order> ],
-              "sections": { <type>: <insight card> }   # for fixed dashboard tiles
+              "sections": { <type>: <insight card> },  # for fixed dashboard tiles
+              "charts": {
+                "spending_history": {...},   # history bars + forecast ghost bar
+                "category_momentum": {...},  # MoM rate of change per category
+              }
             }
         """
         insights = ranking.rank(self.run_user(user_id), top_n=top_n)
@@ -71,7 +79,21 @@ class InsightEngine:
             "hero": cards[0] if cards else None,
             "insights": cards,
             "sections": sections,
+            "charts": {
+                "spending_history": self.analytics.spending_history(user_id, months=chart_months),
+                "category_momentum": self.analytics.category_momentum(user_id, months=chart_months),
+            },
         }
+
+    # -- analytics accessors (deterministic chart queries) ---------------- #
+
+    def spending_history(self, user_id: str, months: int = 6) -> dict:
+        """History bars + forecast ghost bar for the spending chart page."""
+        return self.analytics.spending_history(user_id, months=months)
+
+    def category_momentum(self, user_id: str, months: int = 6) -> dict:
+        """Month-on-month rate of change per category (goal tracking)."""
+        return self.analytics.category_momentum(user_id, months=months)
 
     def run_all(self, user_ids: list[str] | None = None) -> dict[str, list[Insight]]:
         ids = user_ids if user_ids is not None else list(self._groups.groups.keys())
