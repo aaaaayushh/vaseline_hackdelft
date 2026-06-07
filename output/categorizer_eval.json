@@ -1,0 +1,24 @@
+{
+  "production": {
+    "name": "PRODUCTION time-split (Nov-Dec)",
+    "n": 317761,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "mean_confidence": 0.9999999829730392
+  },
+  "production_new_merch": {
+    "name": "  -> cold-start merchants in test",
+    "n": 94,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "mean_confidence": 0.9999997191622165
+  },
+  "capability": {
+    "name": "CAPABILITY held-out merchants (no MCC)",
+    "n": 161142,
+    "accuracy": 0.47226669645405916,
+    "macro_f1": 0.23661575809250068,
+    "mean_confidence": 0.9400342527982999
+  },
+  "capability_majority_baseline": 0.2494570006578049
+}

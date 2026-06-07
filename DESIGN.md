@@ -9,17 +9,17 @@ This document is the master framework. It covers the three required components �
 
 ## 1. Executive Summary (the 1-page deliverable)
 
-**Problem.** Revolut's spending analytics are only as good as transaction categorization — and categorization is hard. The dataset ships a `category` column, but it is a 1:1 copy of the raw MCC code: **396 messy, overlapping labels** ("Record Shops", "Misc. Food Stores") that nobody budgets by. Worse, **~26% of card spend** goes to digital merchants scattered across half a dozen wrong labels, and **3.3% of transactions have no MCC at all** (ATM, fees, transfers) so they can't be categorized by lookup. Bad categories → useless budgets → users who don't understand their money.
+**Problem.** Revolut's spending analytics are only as good as transaction categorization — and categorization is hard. The dataset ships a `category` column, but it is a 1:1 copy of the raw MCC code: **396 granular, overlapping labels** ("Record Shops", "Drinking Places", "Misc. Food Stores") never designed for consumer budgeting — even a *perfect* MCC is the wrong vocabulary for a budget. And MCC isn't always available: **3.3% of transactions carry no MCC** (ATM, fees, transfers), and in production it's routinely missing or stale for new merchants. Unusable categories → useless budgets → users who don't understand their money. *(Note: the data is synthetic, so MCC is the ground truth — our job is to make categories budget-ready and to categorize without depending on MCC, not to "fix wrong MCCs.")*
 
 **Our solution — Spending IQ, three engines on one data contract:**
 
-1. **Categorization Engine.** A clean, well-known cascade — global rules → gradient-boosted classifier → LLM fallback — that maps every transaction (incl. the no-MCC ones) onto a **12-category budgeting taxonomy** (Plaid-standard). It is **personalized**: the model learns each user's history (their typical category, amount, and timing per merchant) and a behavioral persona, so the *same* merchant is categorized correctly *for that user*. We respect temporal integrity — only the past predicts the future.
+1. **Categorization Engine.** A clean, well-known cascade — global rules → gradient-boosted classifier → LLM fallback — that maps every transaction (incl. the no-MCC ones) onto a **12-category budgeting taxonomy** (Plaid-standard), and can do so **without relying on MCC** (which is often absent in production). It is **personalized**: the model learns each user's history (their typical category, amount, and timing per merchant) and a behavioral persona, so the *same* merchant lands in the budgeting category that fits *that user*. We respect temporal integrity — only the past predicts the future.
 
-2. **Insight Engine.** A modular library of insight detectors over the categorized data, with a ranking layer that surfaces only the top, non-spammy insight. **Hero insight: proactive overspend alerts** — "You're 40% over your usual Dining this month, and it's only the 18th."
+2. **Insight Engine.** A modular library of insight detectors over the categorized data, with a ranking layer that surfaces only the top, non-spammy insight. **Hero insight: proactive overspend alerts** — "You're 40% over your usual Dining this month, and it's only the 18th." Backed by a strong **low-balance / declined-payment** alert (73% of users hit an insufficient-balance decline).
 
 3. **Financial Agent.** A Claude-powered, tool-calling advisor. It answers questions with **computed (never hallucinated) numbers**, explains insights, runs what-if plans, and takes **simulated actions** (set a budget, cancel a subscription). It remembers your goals across sessions.
 
-**Why it wins.** Accurate + personal categorization is the foundation; the insight + agent layer is the differentiated product. Numbers are always computed deterministically; the LLM only reasons and explains. The architecture is cost-aware (bulk categorization is pennies; the LLM touches only the uncertain ~3%), which makes it genuinely feasible at Revolut scale.
+**Why it wins.** Clean, MCC-independent, personal categorization is the foundation; the insight + agent layer is the differentiated product. Numbers are always computed deterministically; the LLM only reasons and explains. The architecture is cost-aware (bulk categorization is pennies; the LLM touches only the uncertain ~3%), which makes it genuinely feasible at Revolut scale.
 
 ---
 
@@ -28,12 +28,12 @@ This document is the master framework. It covers the three required components �
 From our exploration + cleaning notebook (`01_explore_and_clean.ipynb`):
 
 - **1,000,000 transactions · ~18,000 users · Jul–Dec 2025** (~55 txns/user — enough to build per-user history).
-- **`category` is a deterministic function of `mcc`** → the shipped categories *are* the raw, messy MCC labels (396 of them). This is the problem to solve, not a ground truth to copy.
-- **~25.7% of card spend** is digital merchants (`gracht.app`, `tulp.nl/abonnement`, …) spread across "Record Shops", "Digital Goods", etc.
+- **`category` is a deterministic function of `mcc`** → the shipped categories *are* the raw MCC labels (396 of them). Because the data is synthetic, **MCC is effectively the ground truth — there are no "wrong" labels to fix.** The problem isn't accuracy; it's that 396 granular MCC labels are unusable for budgeting, and MCC isn't always present.
+- **~25.7% of card spend** is digital-domain merchants (`gracht.app`, `gracht.io`, …) concentrated under a few MCCs ("Record Shops", "Computer Software Stores", "Digital Goods") — i.e. one budgeting concept ("Digital & Subscriptions") is split across several MCC labels. A **normalization opportunity, not an error.**
 - **3.3% of rows have no MCC** (ATM/FEE/CHARGE/etc.) — uncategorizable by lookup; our model still categorizes them.
 - **Data quality:** 28.5% of rows carry ≥1 anomaly flag (largest: a card-present/`Not PRESENT` conflict at 19.2%; FX markup on home-currency GBP; Pareto-tail outliers). We **flag, don't delete**, and added a normalized `amount_signed_gbp` (credits negative, debits positive) for clean cashflow math.
 
-**Implication for the framework:** there is **no objective ground-truth category** (merchants are synthetic; MCC is itself a noisy proxy). So we do **not** chase a leaderboard accuracy number. We treat the data as a realistic sandbox: mine insights, prove the pipeline runs at scale, and validate *capability* honestly (see §6).
+**Implication for the framework:** there is **no *independent* ground-truth category** beyond MCC itself — the merchants are synthetic and MCC is the label the generator assigned, so on this data MCC *is* the truth. So we do **not** chase a "beat MCC" accuracy number. We treat the data as a realistic sandbox: mine insights, prove the pipeline runs at scale, and validate *capability* honestly (see §8).
 
 ---
 
@@ -78,7 +78,7 @@ Layer 2  LLM FALLBACK      Claude Haiku 4.5 + structured outputs, only when
                            Layer 1 confidence < threshold OR cold-start.
                            Results cached by merchant_id.
 ```
-**MCC is a feature, not a gate.** A merchant transaction is *never* categorized by its MCC alone — the ML always runs and can **override** MCC using merchant name, amount, user history, and persona. This is precisely what lets us fix the ~26% misfiled digital spend (e.g. `gracht.app`, MCC 5735 "Record Shops" → **Digital & Subscriptions**); an early-exit-on-MCC gate would silently propagate that error. Only the structural, non-merchant *types* in Layer 0 get a pure deterministic rule and skip the ML.
+**MCC is a feature, not a gate.** A merchant transaction is *never* decided by its MCC alone — the ML always runs, with MCC as a strong, overridable prior. To be clear: on synthetic data MCC is the ground truth, so we are **not** "correcting wrong MCCs." We keep MCC overridable for two honest reasons: **(1) production robustness** — MCC is frequently missing or unreliable in the real world, so the model must assign a budgeting category from merchant name, amount, channel, and user history *without* depending on MCC (and it must still handle the no-MCC rows here); **(2) budgeting nuance** — one budget concept is spread across many MCC labels (e.g. "Digital & Subscriptions" lives under "Record Shops", "Computer Software Stores", "Digital Goods"), and the same merchant can mean different things to different users. The model learns to stand on behaviour rather than merely echo MCC. Only the structural, non-merchant *types* in Layer 0 get a pure deterministic rule and skip the ML.
 
 Cost: Layers 0–1 handle ~97% of volume in microseconds at ~zero marginal cost, so there's no reason to gate merchant transactions on MCC. Only the uncertain tail (~3%) hits the LLM, via the **Batches API (50% off)** with `output_config.format` (strict JSON). Every LLM answer is cached → the long tail is paid for once.
 
@@ -91,7 +91,7 @@ Two well-known mechanisms (the chosen approach):
 - user's typical amount & amount-percentile for this merchant
 - user's time-of-day / day-of-week pattern
 
-This resolves the classic ambiguity — the *same* merchant means different things to different users (Albert Heijn at £80 weekly = Groceries; at £3 = a snack run). The model decides *relative to that user*.
+This resolves the classic ambiguity — the *same* merchant means different things to different users (Albert Heijn at £80 weekly = Groceries; at £3 = a snack run). The model decides *relative to that user*. **Validated:** a user's top-3 merchants account for ~67% of their spend (median), so merchant-level history carries strong predictive signal — personalization has real headroom here.
 
 **(b) Behavioral-persona priors.** Cluster users into spend personas (GMM — the same family the data was generated from, so personas recover cleanly). For **cold-start** users/merchants with little history, the persona supplies a sensible prior before personal history exists.
 
@@ -112,10 +112,23 @@ InsightDetector.run(user_history) -> [ {type, severity, user_id, payload, explan
 A **ranking layer** scores candidates by severity × relevance × novelty, applies dedup + cooldown, and surfaces only the **top-N** — so the user gets the one insight that matters, not notification spam. (This anti-spam ranking is itself an architecture talking point.)
 
 ### 5.2 Hero insight — Proactive Overspend Alert
-For each user × category, learn a personal baseline (rolling mean + seasonal adjustment) and a dispersion (robust z-score). Fire when the *month-to-date run rate* projects materially above baseline, **early enough to act** ("40% over your usual Dining, and it's only the 18th"). Robust on noisy synthetic data, named explicitly in the brief, and it directly demonstrates the value of better categorization (you can't alert on "Dining" if "Dining" is mislabeled).
+For each user × category, learn a personal baseline (rolling mean + seasonal adjustment) and a dispersion (robust z-score). Fire when the *month-to-date run rate* projects materially above baseline, **early enough to act** ("40% over your usual Dining, and it's only the 18th"). Named explicitly in the brief, and it directly demonstrates the value of clean categorization — you can't alert on "Dining" until it's unified from "Eating Places", "Fast Food", and "Drinking Places" into one budgeting category.
 
-### 5.3 Supporting detectors (breadth)
-Subscription radar (new/forgotten/price-hiked recurring), FX & fee leakage (txn vs bill amount — on-brand for Revolut), upcoming-charges/cashflow forecast, unusual-spend anomaly, cohort benchmarking (demographics + region), decline insight (declines before payday).
+**Feasibility (validated):** **79% of users** have ≥1 category with ≥3 months of history to baseline against. Caveat: monthly per-category spend is volatile (median CV ≈ 0.68), so we only fire on well-sampled, stable categories with a robust threshold — avoiding false alarms on naturally spiky categories.
+
+### 5.3 Insight lineup — validated against the data
+We tested every candidate on the full dataset and kept only what's real (numbers from `output/df_clean.parquet`):
+
+| Detector | Signal in the data | Verdict |
+|---|---|---|
+| **Low-balance / declined-payment** | 19.2% of txns decline; **75% are insufficient-balance**; **73% of users** hit one, and **71% of those chronically (≥3)** | ✅ **Strongest supporting** — universal & actionable ("top up before your next charge"). Note: weak calendar signal (not payday-driven). |
+| **Subscription radar** | 32% of users have a fixed-amount recurring merchant (≥3 months); 71% have a looser repeat pattern | ✅ Viable — frame precision conservatively (synthetic cadence is noisy) |
+| **Big-purchase / travel spend** | largest single txn = 22% of a user's 6-mo spend (median); **57% of spend is cross-border**; hotels/travel lumpy (p95 £465–£717) | ✅ "Large / holiday spend detected" |
+| **Responsible-spending (gambling)** | 25% of users have a betting txn, but median gambler only £30/6mo; ~100–300 heavy users | ✅ Targeted at heavy users, not a mass nudge |
+| **Cohort benchmarking** | demographics barely predict amount (~£24 mean across every age/gender); personas stronger | ⚠️ Use behavioral personas, not demographics |
+| ~~FX & fee leakage~~ | total FX markup across all foreign txns = **£363** (median gap £0.05); fees total **£241** | ❌ **Cut** — effectively absent in synthetic data |
+| ~~Income / cashflow forecast~~ | only **4 users** have credits in ≥3 months; no recurring salary | ❌ **Cut** — no income signal to forecast against |
+| ~~Duplicate-charge~~ | only 112 txns (98 users) look like double charges | ❌ Negligible |
 
 ---
 
@@ -154,13 +167,13 @@ Push: *"Dining 40% above usual"* → tap → agent explains (3 new restaurants +
 
 ## 8. Using synthetic data honestly — evaluation methodology
 
-There is **no ground-truth category** (synthetic merchants; MCC is a noisy proxy). So we don't claim to "beat MCC accuracy." Instead:
+There is **no independent ground-truth category** — the merchants are synthetic and MCC is the label the generator assigned, so on this data **MCC *is* the ground truth.** We therefore never claim to "beat" or "correct" MCC. What we demonstrate instead:
 
-- **Capability demonstration (real number):** treat MCC→PFC as a weak label; train with a **time-ordered split** and **evaluate on held-out merchants/months**. Reported as: *"the model recovers the right category from behavior + merchant structure even when MCC is absent/unreliable"* — which matters because 3.3% have no MCC and production MCC is noisy.
+- **Capability demonstration (real number):** treat MCC→PFC as the label; train with a **time-ordered split** and **evaluate on held-out merchants/months** using *non-MCC* features. Reported as: *"the model recovers the budgeting category from behaviour + merchant structure even when MCC is withheld"* — which is exactly the production case (3.3% have no MCC here; in production it's often missing entirely). **Held-out *merchants* is the honest test:** only 0.1% of Nov–Dec txns are at brand-new merchants, so a random row split would be trivially easy (the model would just memorize merchant→category) — generalizing to unseen merchants is the real challenge.
 - **Label-free metrics (full 1M rows):** coverage (we categorize the no-MCC rows lookup can't), consistency (same merchant → same category), personalization lift (does adding user-history features change ambiguous-merchant assignments coherently per user).
 - **Qualitative spot-check:** a small human/LLM-judged sample for credibility (with inter-annotator note), explicitly flagged as illustrative.
 
-**Q&A answer:** *"On synthetic data with fictional merchants, MCC is effectively the ground truth — so we don't claim to beat it. We prove our categorizer generalizes to unseen merchants and covers transactions MCC can't, and that personalization changes assignments coherently per user."*
+**Q&A answer:** *"On synthetic data with fictional merchants, MCC is effectively the ground truth — so we don't claim to beat it or fix 'wrong' labels. Our categorization value is real and verifiable: we normalize 396 unusable MCC labels into 12 budget-ready categories, we prove the model can assign that category from behaviour when MCC is withheld (held-out merchants), and personalization changes assignments coherently per user."*
 
 ---
 
@@ -170,14 +183,16 @@ Python end-to-end · pandas + DuckDB (query layer) · scikit-learn + LightGBM (c
 ---
 
 ## 10. Business impact & feasibility (the 30% axis)
-- **Impact:** accurate, personal categories → trustworthy budgets → the insight + agent layer drives engagement and retention. FX/fee insight is uniquely Revolut.
+- **Impact:** clean, personal categories → trustworthy budgets → the insight + agent layer drives engagement and retention. Reducing declined payments (73% of users hit an insufficient-balance decline) directly cuts friction and failed-payment churn — a concrete Revolut win.
 - **Feasibility / cost:** deterministic rules + LightGBM handle ~97% of volume at ~zero marginal cost and millisecond latency; the LLM touches only the uncertain ~3%, batched at 50% off and cached. We do **not** run a million LLM calls a day. This is the deployable shape, not a demo toy.
 
 ---
 
 ## 11. Risks & limitations (own them)
 - Synthetic recurrence is noisy → we don't over-promise clean subscription detection; overspend is the robust hero.
-- No ground truth → capability + label-free evaluation, stated plainly.
+- Overspend baselines are noisy (median monthly CV ≈ 0.68) → we alert only on well-sampled, stable categories with robust thresholds.
+- FX, fees, and income are effectively absent in the synthetic data (FX markup £363 total; 4 users with recurring credits) → those insights are **cut, not faked**.
+- On synthetic data MCC is the ground truth → we never claim to fix "wrong" MCCs; the categorization value is normalization (396→12), MCC-independent prediction, and personalization — evaluated by capability + label-free metrics.
 - Card-present/FX anomalies are synthetic artifacts → flagged, not silently trusted.
 - Cold-start users → persona priors + LLM fallback cover the gap.
 
@@ -186,7 +201,7 @@ Python end-to-end · pandas + DuckDB (query layer) · scikit-learn + LightGBM (c
 ## 12. Deck skeleton (10 min, ~10 slides) + build plan
 
 **Slides**
-1. **Hook** — "Revolut already has a category column. Here are 116,000 transactions it calls *Record Shops* that are actually app subscriptions." (the problem, in one slide)
+1. **Hook** — "Revolut's `category` column is just the raw MCC: 396 labels like *Record Shops*, *Drinking Places*, *Misc. Food Stores* that nobody budgets by — and the MCC behind them isn't always even there." (the problem, in one slide)
 2. **Vision** — Spending IQ: categorize → insight → act.
 3. **Architecture** — three engines, one data contract (the diagram).
 4. **Categorization** — taxonomy + cascade + personalization (history features + persona) + temporal integrity.
@@ -194,10 +209,10 @@ Python end-to-end · pandas + DuckDB (query layer) · scikit-learn + LightGBM (c
 6. **Insight Engine** — detector framework + ranking; the overspend hero.
 7. **Financial Agent** — tool-calling, computed-not-hallucinated numbers, actions.
 8. **Live demo** — push → explain → plan → cancel (the 3-min flow).
-9. **Feasibility at scale** — cost/latency story; Revolut fit (FX).
+9. **Feasibility at scale** — cost/latency story; Revolut fit (cut declined-payment friction).
 10. **Close** — before/after categories; what we'd build next.
 
-**Q&A prep:** "it's synthetic, how do you score?" (§8) · "isn't MCC fine?" (1:1 with category, 26% misfiled, 3.3% missing) · "how is this personalized?" (§4.3) · "does the agent make up numbers?" (no — tools compute, §6.1) · "cost at scale?" (§10).
+**Q&A prep:** "it's synthetic, how do you score?" (§8 — MCC is the ground truth; we normalize + predict-without-MCC, we don't "beat" it) · "isn't MCC fine?" (it's 396 unusable labels, 1:1 with category, missing on 3.3% here and often absent in production) · "aren't you just relabeling MCC?" (no — the model assigns the category from behaviour with MCC withheld; §4.2/§8) · "how is this personalized?" (§4.3) · "does the agent make up numbers?" (no — tools compute, §6.1) · "cost at scale?" (§10).
 
 **PoC build order (after this doc):**
 1. Taxonomy + MCC→PFC map.

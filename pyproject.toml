@@ -7,10 +7,12 @@ requires-python = ">=3.10"
 dependencies = [
     "fastparquet>=2026.5.0",
     "ipykernel>=7.2.0",
+    "lightgbm>=4.6.0",
     "matplotlib>=3.10.9",
     "numpy>=2.2.6",
     "pandas>=2.3.3",
     "pyarrow>=24.0.0",
     "scikit-learn>=1.7.2",
+    "scipy>=1.15.3",
     "seaborn>=0.13.2",
 ]

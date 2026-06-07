@@ -1,0 +1,422 @@
+mcc,irs_description,n
+5411,"Grocery Stores, Supermarkets",147146
+5735,Record Stores,116135
+5812,"Eating Places, Restaurants",70971
+5734,Computer Software Stores,59067
+5814,Fast Food Restaurants,52869
+4111,"Commuter Transport, Ferries",51213
+5499,Miscellaneous Food Stores - Convenience Stores and Specialty Markets,50555
+4121,Taxicabs/Limousines,31641
+5541,Service Stations ,29126
+7995,Betting/Casino Gambling,10030
+5813,Drinking Places,9561
+5967,Direct Marketing - Inbound Tele,9310
+7523,"Parking Lots, Garages",8274
+5999,Miscellaneous Specialty Retail,8267
+5993,Cigar Stores and Stands,7587
+7011,"Hotels, Motels, and Resorts",7325
+5331,Variety Stores,6730
+5199,Nondurable Goods (Not Elsewhere Classified),6342
+5310,Discount Stores,6279
+5311,Department Stores,6024
+5399,Miscellaneous General Merchandise,5584
+5462,Bakeries,4771
+5542,Automated Fuel Dispensers,4469
+4899,"Cable, Satellite, and Other Pay Television and Radio",4276
+7372,Computer Programming,4011
+4722,"Travel Agencies, Tour Operators",3979
+7399,Miscellaneous Business Services ,3829
+5811,Caterers,3772
+5691,"Men’s, Women’s Clothing Stores",3726
+5651,Family Clothing Stores,3495
+6300,"Insurance Underwriting, Premiums",3265
+5912,Drug Stores and Pharmacies,3086
+7311,Advertising Services,3006
+5977,Cosmetic Stores,2922
+4789,Transportation Services (Not Elsewhere Classified),2892
+5968,Direct Marketing - Subscription,2886
+7299,Miscellaneous General Services,2668
+7999,Miscellaneous Recreation Services,2473
+4814,Telecommunication Services,2060
+4784,Tolls/Bridge Fees,2034
+4112,Passenger Railways,1852
+6051,"Non-FI, Money Orders",1781
+4829,"Wires, Money Orders",1750
+6012,Financial Institutions,1726
+9399,Government Services (Not Elsewhere Classified),1718
+8299,Educational Services ,1713
+4131,Bus Lines,1683
+5947,"Gift, Card, Novelty, and Souvenir Shops",1679
+7997,Country Clubs,1633
+7991,Tourist Attractions and Exhibits,1632
+7922,Theatrical Ticket Agencies,1630
+5921,"Package Stores-Beer, Wine, and Liquor",1625
+7230,Barber and Beauty Shops,1577
+4816,Computer Network Services,1490
+5942,Book Stores,1467
+5732,Electronics Stores,1404
+5931,Used Merchandise and Secondhand Stores,1399
+8999,Professional Services,1348
+5945,"Hobby, Toy, and Game Shops",1337
+5422,Freezer and Locker Meat Provisioners,1286
+6211,Security Brokers/Dealers,1220
+0763,Agricultural Cooperative,1119
+8398,Charitable and Social Service Organizations - Fundraising,1087
+7996,Amusement Parks/Carnivals,1084
+5712,"Furniture, Home Furnishings, and Equipment Stores, Except Appliances",1058
+5441,"Candy, Nut, and Confectionery Stores",998
+7542,Car Washes,973
+8931,Accounting/Bookkeeping Services,970
+5200,Home Supply Warehouse Stores,950
+4511,"Airlines, Air Carriers",937
+5941,Sporting Goods Stores,937
+7994,Video Game Arcades,922
+5699,Miscellaneous Apparel and Accessory Shops,893
+5122,"Drugs, Drug Proprietaries, and Druggist Sundries",852
+5309,Duty Free Stores,844
+7832,Motion Picture Theaters,835
+5045,"Computers, Peripherals, and Software",786
+5661,Shoe Stores,783
+7298,Health and Beauty Spas,778
+7841,Video Tape Rental Stores,743
+5655,Sports and Riding Apparel Stores,739
+7512,Car Rental Agencies,723
+7392,"Consulting, Public Relations",714
+5994,News Dealers and Newsstands,714
+5722,Household Appliance Stores,702
+3246,Airlines,687
+7273,Dating/Escort Services,675
+5992,Florists,673
+4812,Telecommunication Equipment and Telephone Sales,666
+7829,Picture/Video Production,645
+5995,"Pet Shops, Pet Food, and Supplies",636
+4215,Courier Services ,620
+7929,"Bands, Orchestras",620
+5943,"Stationery Stores, Office, and School Supply Stores",583
+7941,Sports Clubs/Fields,582
+5300,Wholesale Clubs,577
+5192,"Books, Periodicals, and Newspapers",567
+5511,"Car and Truck Dealers (New & Used) Sales, Service, Repairs Parts and Leasing ",561
+5039,Construction Materials (Not Elsewhere Classified),555
+5949,"Sewing, Needlework, Fabric, and Piece Goods Stores",541
+5251,Hardware Stores,536
+7361,Employment/Temp Agencies,510
+4900,Utilities ,506
+8699,Membership Organizations,505
+5451,Dairy Products Stores,489
+5621,Women’s Ready-To-Wear Stores,486
+5211,"Lumber, Building Materials Stores",483
+6513,Real Estate Agents and Managers - Rentals,475
+8062,Hospitals,472
+5611,Men’s and Boy’s Clothing and Accessories Stores,463
+5944,"Jewelry Stores, Watches, Clocks, and Silverware Stores",430
+7221,Photographic Studios,426
+3245,Airlines,421
+5964,Direct Marketing - Catalog Merchant,408
+8099,Medical Services ,375
+8220,"Colleges, Universities",359
+5719,Miscellaneous Home Furnishing Specialty Stores,339
+4225,"Public Warehousing and Storage - Farm Products, Refrigerated Goods, Household Goods, and Storage ",326
+5940,Bicycle Shops,312
+5631,Women’s Accessory and Specialty Shops,310
+3355,Car Rental,299
+5969,Direct Marketing - Other ,279
+7394,Equipment Rental ,271
+3010,Airlines,266
+7333,"Commercial Photography, Art and Graphics",259
+7211,Laundries ,247
+7033,"Trailer Parks, Campgrounds",247
+9311,Tax Payments - Government Agencies,245
+4011,Railroads,220
+8641,"Civic, Social, Fraternal Associations",218
+5533,Automotive Parts and Accessories Stores,215
+7278,Buying/Shopping Services,205
+7210,"Laundry, Cleaning Services",193
+2741,Miscellaneous Publishing and Printing,182
+5021,Office and Commercial Furniture,180
+8011,Doctors,174
+8043,"Opticians, Eyeglasses",171
+5193,"Florists Supplies, Nursery Stock, and Flowers",166
+5970,Artist’s Supply and Craft Shops,163
+0780,Landscaping Services,163
+4214,"Motor Freight Carriers and Trucking - Local and Long Distance, Moving and Storage Companies, and Local Delivery Services ",161
+5948,Luggage and Leather Goods Stores,154
+5641,Children’s and Infant’s Wear Stores,151
+3509,Hotels/Motels/Inns/Resorts,147
+4411,Cruise Lines,143
+7538,Auto Service Shops,133
+9402,Postal Services - Government Only,132
+5172,Petroleum and Petroleum Products,131
+0742,Veterinary Services,131
+7993,Video Amusement Game Supplies,129
+3504,Hotels/Motels/Inns/Resorts,125
+5072,"Hardware, Equipment, and Supplies",123
+5099,Durable Goods (Not Elsewhere Classified),122
+4582,"Airports, Flying Fields",119
+5261,"Nurseries, Lawn and Garden Supply Stores",118
+5046,Commercial Equipment (Not Elsewhere Classified),115
+5946,Camera and Photographic Supply Stores,114
+5983,Fuel Dealers (Non Automotive),112
+8021,"Dentists, Orthodontists",106
+7032,Sporting/Recreation Camps,100
+1520,General Contractors,98
+5521,"Car and Truck Dealers (Used Only) Sales, Service, Repairs Parts and Leasing ",98
+5996,Swimming Pools Sales,97
+5965,Direct Marketing - Combination Catalog and Retail Merchant,95
+8244,Business/Secretarial Schools,94
+5733,"Music Stores-Musical Instruments, Pianos, and Sheet Music",90
+7992,Golf Courses - Public,89
+7349,Cleaning and Maintenance,84
+8661,Religious Organizations,84
+5971,Art Dealers and Galleries,80
+1731,Electrical Contractors,79
+7395,Photo Developing,77
+5085,Industrial Supplies (Not Elsewhere Classified),74
+5065,Electrical Parts and Equipment,70
+7911,"Dance Hall, Studios, Schools",70
+3016,Airlines,67
+8050,Nursing/Personal Care ,67
+9405,U.S. Federal Government Agencies or Departments,65
+5047,"Medical, Dental, Ophthalmic, and Hospital Equipment and Supplies",63
+6011,Automated Cash Disburse,62
+5013,Motor Vehicle Supplies and New Parts,61
+7379,Computer Repair,60
+5137,"Uniforms, Commercial Clothing",60
+5932,Antique Shops,59
+5599,Miscellaneous Auto Dealers ,59
+2842,Specialty Cleaning,57
+7297,Massage Parlors,57
+3102,Airlines,55
+7699,Miscellaneous Repair Shops,51
+8111,"Legal Services, Attorneys",51
+7933,Bowling Alleys,50
+7998,Aquariums,50
+1799,Special Trade Contractors,48
+5169,Chemicals and Allied Products (Not Elsewhere Classified),48
+8211,"Elementary, Secondary Schools",47
+7932,Billiard/Pool Establishments,47
+7251,Shoe Repair/Hat Cleaning,47
+5111,"Stationary, Office Supplies, Printing and Writing Paper",46
+3034,Airlines,44
+5231,"Glass, Paint, and Wallpaper Stores",43
+4457,Boat Rentals and Leases,42
+7338,"Quick Copy, Repro, and Blueprint",41
+5976,Orthopedic Goods - Prosthetic Devices,41
+3000,Airlines,39
+8911,Architectural/Surveying Services,38
+3357,Car Rental,38
+5094,"Precious Stones and Metals, Watches and Jewelry",38
+8071,Medical and Dental Labs,38
+7513,Truck/Utility Trailer Rentals,36
+3381,Car Rental,36
+7277,Counseling Services,35
+5697,"Tailors, Alterations",33
+5963,Door-To-Door Sales,33
+1740,"Masonry, Stonework, and Plaster",33
+7216,Dry Cleaners,33
+7622,Electronics Repair Shops,33
+3047,Airlines,32
+5973,Religious Goods Stores,30
+3501,Hotels/Motels/Inns/Resorts,30
+3005,Airlines,30
+5950,"Glassware, Crystal Stores",30
+3008,Airlines,30
+7375,Information Retrieval Services,30
+7321,Credit Reporting Agencies,29
+5972,Stamp and Coin Stores,28
+3533,Hotels/Motels/Inns/Resorts,26
+3020,Airlines,25
+3026,Airlines,25
+3780,Hotels/Motels/Inns/Resorts,25
+3389,Car Rental,24
+3640,Hotels/Motels/Inns/Resorts,23
+3035,Airlines,23
+3014,Airlines,23
+8249,Vocational/Trade Schools,22
+3039,Airlines,22
+3001,Airlines,20
+5962,Direct Marketing - Travel,20
+5571,Motorcycle Shops and Dealers,19
+3136,Airlines,19
+5139,Commercial Footwear,19
+5131,"Piece Goods, Notions, and Other Dry Goods",19
+3174,Airlines,18
+3079,Airlines,18
+4468,"Marinas, Service and Supplies",18
+3595,Hotels/Motels/Inns/Resorts,18
+3182,Airlines,17
+5714,"Drapery, Window Covering, and Upholstery Stores",17
+7519,Recreational Vehicle Rentals,16
+3548,Hotels/Motels/Inns/Resorts,16
+7012,Timeshares,16
+5681,Furriers and Fur Shops,15
+5713,Floor Covering Stores,15
+5074,"Plumbing, Heating Equipment, and Supplies",15
+3013,Airlines,14
+8351,Child Care Services,14
+3058,Airlines,13
+3642,Hotels/Motels/Inns/Resorts,13
+3649,Hotels/Motels/Inns/Resorts,13
+3503,Hotels/Motels/Inns/Resorts,12
+7531,Auto Body Repair Shops,12
+3082,Airlines,12
+8042,"Optometrists, Ophthalmologist",12
+5044,"Photographic, Photocopy, Microfilm Equipment, and Supplies",12
+3007,Airlines,12
+5698,Wig and Toupee Stores,12
+3351,Car Rental,12
+5960,Direct Marketing - Insurance Services,11
+9222,Fines - Government Administrative Entities,11
+7339,Secretarial Support Services,11
+3112,Airlines,11
+5532,Automotive Tire Stores,11
+3619,Hotels/Motels/Inns/Resorts,10
+3051,Airlines,10
+3099,Airlines,10
+3043,Airlines,10
+3029,Airlines,10
+8734,Testing Laboratories,9
+5551,Boat Dealers,9
+3260,Airlines,8
+1761,"Roofing/Siding, Sheet Metal",8
+3535,Hotels/Motels/Inns/Resorts,8
+5997,Electric Razor Stores,8
+8041,Chiropractors,8
+5966,Direct Marketing - Outbound Tele,8
+5198,"Paints, Varnishes, and Supplies",8
+5271,Mobile Home Dealers,7
+5998,Tent and Awning Shops,7
+3779,Hotels/Motels/Inns/Resorts,7
+3132,Airlines,7
+3615,Hotels/Motels/Inns/Resorts,7
+3579,Hotels/Motels/Inns/Resorts,7
+3502,Hotels/Motels/Inns/Resorts,7
+3405,Car Rental,7
+3590,Hotels/Motels/Inns/Resorts,7
+3703,Hotels/Motels/Inns/Resorts,6
+7296,Clothing Rental ,6
+3583,Hotels/Motels/Inns/Resorts,6
+7549,Towing Services,6
+3015,Airlines,6
+9211,"Court Costs, Including Alimony and Child Support - Courts of Law",6
+8241,Correspondence Schools,6
+5718,"Fireplace, Fireplace Screens, and Accessories Stores",6
+3520,Hotels/Motels/Inns/Resorts,6
+3366,Car Rental,6
+3042,Airlines,6
+7534,Tire Retreading and Repair,6
+5561,"Motorcycle Shops, Dealers",6
+3183,Airlines,5
+3690,Hotels/Motels/Inns/Resorts,5
+7629,Small Appliance Repair,5
+5933,Pawn Shops,5
+3513,Hotels/Motels/Inns/Resorts,5
+3012,Airlines,5
+3072,Airlines,5
+3722,Hotels/Motels/Inns/Resorts,5
+1711,"Heating, Plumbing, A/C",5
+7393,Detective Agencies,5
+3716,Hotels/Motels/Inns/Resorts,4
+3512,Hotels/Motels/Inns/Resorts,4
+3665,Hotels/Motels/Inns/Resorts,4
+3719,Hotels/Motels/Inns/Resorts,4
+1750,Carpentry Contractors,4
+3553,Hotels/Motels/Inns/Resorts,4
+3211,Airlines,4
+3022,Airlines,4
+3196,Airlines,4
+8675,Automobile Associations,3
+3127,Airlines,3
+3592,Hotels/Motels/Inns/Resorts,3
+3075,Airlines,3
+5975,Hearing Aids Sales and Supplies,3
+3009,Airlines,3
+5978,Typewriter Stores,3
+7641,"Furniture Repair, Refinishing",3
+3655,Hotels/Motels/Inns/Resorts,3
+1771,Concrete Work Contractors,3
+3037,Airlines,3
+5935,Wrecking and Salvage Yards,3
+7261,"Funeral Services, Crematories",3
+3028,Airlines,3
+3692,Hotels/Motels/Inns/Resorts,2
+7631,Watch/Jewelry Repair,2
+3742,Hotels/Motels/Inns/Resorts,2
+5051,Metal Service Centers,2
+3048,Airlines,2
+3516,Hotels/Motels/Inns/Resorts,2
+7535,Auto Paint Shops,2
+3066,Airlines,2
+3750,Hotels/Motels/Inns/Resorts,2
+3070,Airlines,2
+3025,Airlines,2
+4119,Ambulance Services,2
+3637,Hotels/Motels/Inns/Resorts,2
+3526,Hotels/Motels/Inns/Resorts,2
+3256,Airlines,2
+3236,Airlines,2
+3219,Airlines,2
+3206,Airlines,2
+3641,Hotels/Motels/Inns/Resorts,2
+3175,Airlines,2
+3643,Hotels/Motels/Inns/Resorts,2
+3506,Hotels/Motels/Inns/Resorts,2
+3103,Airlines,2
+5937,Antique Reproductions,2
+3661,Hotels/Motels/Inns/Resorts,2
+3078,Airlines,2
+3006,Airlines,2
+3032,Airlines,2
+3542,Hotels/Motels/Inns/Resorts,1
+3530,Hotels/Motels/Inns/Resorts,1
+8049,"Chiropodists, Podiatrists",1
+3364,Car Rental,1
+3740,Hotels/Motels/Inns/Resorts,1
+3543,Hotels/Motels/Inns/Resorts,1
+3770,Hotels/Motels/Inns/Resorts,1
+3545,Hotels/Motels/Inns/Resorts,1
+3778,Hotels/Motels/Inns/Resorts,1
+3581,Hotels/Motels/Inns/Resorts,1
+8651,Political Organizations,1
+4821,Telegraph Services,1
+3782,Hotels/Motels/Inns/Resorts,1
+3783,Hotels/Motels/Inns/Resorts,1
+3555,Hotels/Motels/Inns/Resorts,1
+3562,Hotels/Motels/Inns/Resorts,1
+9223,"Bail and Bond Payments (payment to the surety for the bond, not the actual bond paid to the government agency) ",1
+3730,Hotels/Motels/Inns/Resorts,1
+3050,Airlines,1
+3017,Airlines,1
+6010,Manual Cash Disburse,1
+3651,Hotels/Motels/Inns/Resorts,1
+3644,Hotels/Motels/Inns/Resorts,1
+3129,Airlines,1
+5592,Motor Homes Dealers,1
+3161,Airlines,1
+3393,Car Rental,1
+3390,Car Rental,1
+3030,Airlines,1
+3387,Car Rental,1
+3261,Airlines,1
+3604,Hotels/Motels/Inns/Resorts,1
+3294,Airlines,1
+3295,Airlines,1
+3299,Airlines,1
+7276,Tax Preparation Services,1
+3654,Hotels/Motels/Inns/Resorts,1
+3565,Hotels/Motels/Inns/Resorts,1
+3084,Airlines,1
+3662,Hotels/Motels/Inns/Resorts,1
+3508,Hotels/Motels/Inns/Resorts,1
+7342,Exterminating Services,1
+3077,Airlines,1
+3680,Hotels/Motels/Inns/Resorts,1
+3052,Airlines,1
+3685,Hotels/Motels/Inns/Resorts,1
+3514,Hotels/Motels/Inns/Resorts,1
+3700,Hotels/Motels/Inns/Resorts,1
+3519,Hotels/Motels/Inns/Resorts,1
+3709,Hotels/Motels/Inns/Resorts,1
+3715,Hotels/Motels/Inns/Resorts,1
+3718,Hotels/Motels/Inns/Resorts,1
+3098,Airlines,1
